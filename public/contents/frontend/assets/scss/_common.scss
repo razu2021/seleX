@@ -1,0 +1,90 @@
+/*=========  Global SCSS Variables ========= */
+$body_background: #fff;
+
+$heading1_size: 3.4rem;
+$heading2_size: 3rem;
+$heading3_size: 2.4rem;
+$heading4_size: 2rem;
+$heading5_size1: 1.8rem;
+$heading6_size: 1.6rem;
+$peragraph_size: 1.6rem;
+$anchor_size: 1.6rem;
+$span_size: 1.3rem;
+
+/*=========  Reset and Global Styles ========= */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $body_background;  // Now, the variable is defined before usage
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: "Roboto", sans-serif;
+}
+
+/**=====  Common CSS ======== */
+a {
+    font-size: $anchor_size;
+    text-decoration: none;
+}
+
+span {
+    font-size: $span_size;
+}
+
+p {
+    font-size: $peragraph_size;
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul, li {
+    list-style-type: none;
+    font-size: 1.6rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-size: $heading1_size;
+}
+
+h2 {
+    font-size: $heading2_size;
+}
+
+h3 {
+    font-size: $heading3_size;
+}
+
+h4 {
+    font-size: $heading4_size;
+}
+
+h5 {
+    font-size: $heading5_size1;
+}
+
+h6 {
+    font-size: $heading6_size;
+}
+
+//form css 
+.custom_input{
+    font-size: 1.6rem;
+}
+.custom_button{
+    font-size: 1.6rem;
+}
+.custom_select{
+    font-size: 1.6rem;
+}

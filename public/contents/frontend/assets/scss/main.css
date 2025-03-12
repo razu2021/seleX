@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @media (max-width: 575.98px) {
   html {
     font-size: 47.5%;
@@ -27,4 +28,98 @@
   html {
     font-size: 62.5%;
   }
-}/*# sourceMappingURL=main.css.map */
+}
+/*=========  Global SCSS Variables ========= */
+/*=========  Reset and Global Styles ========= */
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: "Roboto", sans-serif;
+}
+
+/**=====  Common CSS ======== */
+a {
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+
+span {
+  font-size: 1.3rem;
+}
+
+p {
+  font-size: 1.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+ol, ul, li {
+  list-style-type: none;
+  font-size: 1.6rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2.4rem;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+h5 {
+  font-size: 1.8rem;
+}
+
+h6 {
+  font-size: 1.6rem;
+}
+
+.custom_input {
+  font-size: 1.6rem;
+}
+
+.custom_button {
+  font-size: 1.6rem;
+}
+
+.custom_select {
+  font-size: 1.6rem;
+}
+
+/*-------- header top css -------*/
+.header_top {
+  background-color: #131921;
+  height: 8rem;
+  width: 100%;
+  align-content: center;
+  display: grid;
+  align-items: center;
+}
+
+.user_menu ul li {
+  display: inline-block;
+}
+
+/*---- mixing css start---**/
+/*-------heading h1----------*//*# sourceMappingURL=main.css.map */
