@@ -1,8 +1,14 @@
-<section>
+<section class="header_top">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h1>headier top</h1>
+            <div class="col-lg-3">
+                <h3>Selle_x</h3>
+            </div>
+            <div class="col-lg-6">
+                fd
+            </div>
+            <div class="col-lg-3">
+fdfd
             </div>
         </div>
     </div>
