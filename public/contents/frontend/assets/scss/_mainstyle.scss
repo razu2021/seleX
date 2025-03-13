@@ -1,15 +1,56 @@
 /*-------- header top css -------*/
-.header_top{
-    background-color: #131921;
-   height: 8rem;
-    width: 100%;
-    align-content: center;
-    display: grid;
-    align-items: center;
-
+.header_topbg{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    padding: .8rem 0rem;
 }
-.user_menu{
+.header_top{
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+     a{
+        color:#ff6a00 ;
+        font-weight: 700;
+    }
+}
+
+.search-bar{
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 50%;
+}
+.search-bar select, .search-bar input {
+    border: none;
+    
+}
+.search-bar select {
+    padding-left: 10px;
+    margin: .2rem .5rem;
+    border-right:  1px solid #d3d3d3;
+}
+.search-bar input {
+    flex: 1;
+    padding-left: 10px;
+    width: 50%;
+}
+.search-bar button {
+    background: #ff6a00;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    cursor: pointer;
+}
+.user_icons{
     ul li{
         display: inline-block;
+        padding: 0rem 1rem ;
+
+        a{
+            color: #000;
+        }
     }
 }

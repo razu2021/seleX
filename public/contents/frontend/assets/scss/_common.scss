@@ -32,10 +32,14 @@ body {
 a {
     font-size: $anchor_size;
     text-decoration: none;
+    margin: 0;
+    padding: 0;
 }
 
 span {
     font-size: $span_size;
+    margin: 0;
+    padding: 0;
 }
 
 p {
@@ -47,6 +51,7 @@ p {
 ol, ul, li {
     list-style-type: none;
     font-size: 1.6rem;
+    margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -87,4 +92,7 @@ h6 {
 }
 .custom_select{
     font-size: 1.6rem;
+}
+.input_button{
+    font-size: 1.4rem;
 }

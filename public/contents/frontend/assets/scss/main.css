@@ -49,10 +49,14 @@ body {
 a {
   font-size: 1.6rem;
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 span {
   font-size: 1.3rem;
+  margin: 0;
+  padding: 0;
 }
 
 p {
@@ -64,6 +68,7 @@ p {
 ol, ul, li {
   list-style-type: none;
   font-size: 1.6rem;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -107,18 +112,66 @@ h6 {
   font-size: 1.6rem;
 }
 
-/*-------- header top css -------*/
-.header_top {
-  background-color: #131921;
-  height: 8rem;
-  width: 100%;
-  align-content: center;
-  display: grid;
-  align-items: center;
+.input_button {
+  font-size: 1.4rem;
 }
 
-.user_menu ul li {
+/*-------- header top css -------*/
+.header_topbg {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  padding: 0.8rem 0rem;
+}
+
+.header_top {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo a {
+  color: #ff6a00;
+  font-weight: 700;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 50%;
+}
+
+.search-bar select, .search-bar input {
+  border: none;
+}
+
+.search-bar select {
+  padding-left: 10px;
+  margin: 0.2rem 0.5rem;
+  border-right: 1px solid #d3d3d3;
+}
+
+.search-bar input {
+  flex: 1;
+  padding-left: 10px;
+  width: 50%;
+}
+
+.search-bar button {
+  background: #ff6a00;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+}
+
+.user_icons ul li {
   display: inline-block;
+  padding: 0rem 1rem;
+}
+.user_icons ul li a {
+  color: #000;
 }
 
 /*---- mixing css start---**/
