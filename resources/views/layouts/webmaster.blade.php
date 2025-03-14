@@ -8,10 +8,13 @@
     @includeif('frontend.manage.css.style')
 </head>
 <body>
+    @includeif('frontend/my_component/header/header_note')
+    <div id="allheader" class="all_header">
+        @includeif('frontend/my_component/header/headertop')
+        @includeif('frontend/my_component/header/main_header')
+    </div>
     <!-- header top  -->
-    @includeif('frontend/my_component/header/headertop')
 
-   
     <!--  ======  website content load here ======= -->
     @yield('website_contents')
     <!--  ======  website content end  here ======= -->

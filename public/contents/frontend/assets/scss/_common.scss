@@ -1,4 +1,4 @@
-/*=========  Global SCSS Variables ========= */
+/*=========  Global SCSS Variables ====================================== */
 $body_background: #fff;
 
 $heading1_size: 3.4rem;
@@ -10,6 +10,44 @@ $heading6_size: 1.6rem;
 $peragraph_size: 1.6rem;
 $anchor_size: 1.6rem;
 $span_size: 1.3rem;
+
+
+/*=========variable ... background color===================================*/
+$allheaderbg : #fff;
+$headertopbg : #fff;
+$mainheaderbg : #ff6a00;
+$sidebarbg : #fff;
+$sidebarheadingbg : #ff6a00;
+$sidebarbodybg: #fff;
+$sidebarfooterbg : #fff;
+$bggray: #cecccc;
+$bgwhite: #fff;
+$bgprimary : #ff6a00;
+
+/*=========variable ... rgb background color===================================*/
+$anchorprimay : rgba(255,106,0,0.25);
+
+/* ======= Variable -----  text color ====================================**/
+$logocolor: #ff6a00;
+$primary: #ff6a00;
+$color0 : #fff;
+$color1 : #000;
+$color2 : #ff6a00;
+$color3:#3c00ff;
+$pricered : red;
+$priceblue: #3c00ff;
+$pricepri: #ff6a00;
+$pricelightblack : #190e0e;
+$priceblack:#000;
+$delgray : #e6e6e6;
+$delred : red;
+
+/*======= Variable -----  Hover color ====================================**/
+ $hover0 : #ff6a00;
+ $hoverred: red;
+ $hovergreen : rgb(6, 3, 77) ;
+
+
 
 /*=========  Reset and Global Styles ========= */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
@@ -28,6 +66,9 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+.section-padding{
+    padding: 6rem 0rem;
+}
 /**=====  Common CSS ======== */
 a {
     font-size: $anchor_size;
@@ -52,6 +93,7 @@ ol, ul, li {
     list-style-type: none;
     font-size: 1.6rem;
     margin: 0;
+    padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {

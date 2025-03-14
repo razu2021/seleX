@@ -1,16 +1,27 @@
 /*-------- header top css -------*/
+.headernotebg{
+    background: linear-gradient(90deg, rgba(3,16,71,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+.headernote{
+    padding: 1rem 0rem ;
+    h5{
+        color: $color0;
+    }
+}
+.all_header{
+   background-color: $allheaderbg;
+}
 .header_topbg{
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    background-color: $headertopbg;
     padding: .8rem 0rem;
 }
 .header_top{
-    background: #fff;
     display: flex;
     justify-content: space-between;
 }
 .logo{
      a{
-        color:#ff6a00 ;
+        color:$logocolor ;
         font-weight: 700;
     }
 }
@@ -41,7 +52,7 @@
     background: #ff6a00;
     border: none;
     padding: 8px 15px;
-    color: white;
+    color: $color0;
     cursor: pointer;
 }
 .user_icons{
@@ -50,7 +61,93 @@
         padding: 0rem 1rem ;
 
         a{
-            color: #000;
+            color: $color1;
         }
+    }
+}
+/*------  main navbarrazu css ---**/
+.mainnab_bg{
+    background: $mainheaderbg;
+    
+}
+.main_nav{
+    display: flex;
+    justify-content: space-between;
+}
+.all_categorys{
+   ul li{
+    display: inline-block;
+    padding: 1rem 1.2rem;
+    
+    a{
+        color: $color1;
+    }
+    
+   }
+   ul li:first-child{
+    padding: 0rem ;
+    a{
+        font-weight: 700;
+    }
+   }
+    
+}
+.other_categorys{
+  ul li{
+    display: inline-block;
+    padding: 1rem 1.2rem;
+    a{
+        color: $color1;
+    }
+  }
+
+}
+/*------  main menu css-----*/
+.sidebarbg{
+    background-color: $sidebarbg;
+   
+}
+.sidebarbody{
+    background-color: $sidebarbodybg;
+}
+.sidebar_footer{
+    background-color: $sidebarfooterbg;
+}
+.sellex_sidebar{
+    border-bottom: 2px solid $logocolor;
+    p{
+        padding: 1rem;
+
+    }
+}
+.sidebar_header{
+    background-color: $sidebarheadingbg;
+    h5{
+        font-weight: 700;
+        color: $color0;
+    }
+}
+.main_menu{
+    h5{
+        font-weight: 700;
+    }
+    ul li{
+        display: block;
+        padding: 1rem 0rem;
+        transition: all 0.35s;
+        a{
+            color: $color1;
+            display: block;
+            cursor: pointer;
+        }
+        &:hover {
+            a {
+                color: $hover0;
+                text-transform: uppercase;
+                transition: all .35s ease-in-out;
+            }
+        }
+        
+        
     }
 }
