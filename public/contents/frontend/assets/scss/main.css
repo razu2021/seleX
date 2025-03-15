@@ -34,6 +34,11 @@
 /*=========variable ... rgb background color===================================*/
 /* ======= Variable -----  text color ====================================**/
 /*======= Variable -----  Hover color ====================================**/
+/*========== section bg --------*/
+.sectionbg1 {
+  background-color: rgb(243, 243, 243);
+}
+
 /*=========  Reset and Global Styles ========= */
 * {
   margin: 0;
@@ -227,6 +232,137 @@ h6 {
 }
 
 /*------  todys deals end here ------designwith Razu hossain raj----*/
+/*---- mixing css start---**/
+/*-------heading h1----------*/
+.product_card1 {
+  min-height: 50rem;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden; /* Prevents image overflow */
+}
+.product_card1 .card1_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.product_card1 .card1_image img {
+  transition: transform 0.5s ease-in-out; /* Smooth animation */
+  transform-origin: center; /* Ensures smooth scaling */
+}
+.product_card1:hover .card1_image img {
+  transform: scale(1.1); /* Subtle zoom-in */
+}
+
+.card1_image {
+  position: relative;
+  height: 35rem;
+  width: auto;
+}
+.card1_image img {
+  height: 100%;
+  width: auto;
+  border-radius: 0.5rem;
+}
+
+.suplleir {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+.suplleir a {
+  display: inline-block;
+  background-color: #cecccc;
+  padding: 0.1rem;
+  color: #fff;
+  border-radius: 0.4rem;
+}
+
+.card1_details {
+  padding-top: 1.5rem;
+}
+.card1_details h4 {
+  font-size: 1.7rem;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-weight: 400;
+  padding-bottom: 1rem;
+}
+.card1_details h4 span {
+  background-color: #3A54F0;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  color: #fff;
+}
+.card1_details .price {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  color: #3A54F0;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+}
+.card1_details .price strong {
+  color: #000;
+}
+.card1_details .price del {
+  color: red;
+}
+.card1_details .verified {
+  padding-top: 1rem;
+}
+.card1_details .verified strong {
+  color: #3c00ff;
+}
+.card1_details .verified span {
+  background-color: #ff6a00;
+  padding: 0.2rem;
+  border-radius: 0.4rem;
+  color: #fff;
+}
+
+.card1_buy {
+  padding: 1.5rem 0rem;
+  display: flex;
+  justify-content: flex-start;
+}
+.card1_buy .cart1 {
+  border: none;
+  background-color: transparent;
+  border-radius: 0.8rem;
+  border: 1px solid gray;
+}
+.card1_buy .cart1 a {
+  color: #000;
+  padding: 1rem;
+}
+.card1_buy .cart1:hover {
+  background-color: #ff6a00;
+}
+.card1_buy .buy1 {
+  border: none;
+  background-color: transparent;
+  border-radius: 0.8rem;
+  border: 1px solid gray;
+  margin: 0rem 1rem;
+  transition: all 0.35s;
+}
+.card1_buy .buy1 a {
+  padding: 1.5rem;
+  color: #000;
+}
+.card1_buy .buy1:hover {
+  background-color: #4415ec;
+}
+.card1_buy .buy1:hover a {
+  color: #fff;
+}
+
 /*-------- header top css -------*/
 .headernotebg {
   background: linear-gradient(90deg, rgb(3, 16, 71) 0%, rgb(9, 9, 121) 35%, rgb(0, 212, 255) 100%);

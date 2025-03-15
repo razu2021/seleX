@@ -5,6 +5,9 @@
         @includeif('frontend/my_component/index/todays_deals')
     </div>
     
+    <div class="all_product_index">
+        @includeif('frontend/my_component/index/allproduct')
+    </div>
 
 
 

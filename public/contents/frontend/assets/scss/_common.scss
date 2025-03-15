@@ -23,6 +23,7 @@ $sidebarfooterbg : #fff;
 $bggray: #cecccc;
 $bgwhite: #fff;
 $bgprimary : #ff6a00;
+$bgsecondary : #4415ec;
 
 /*=========variable ... rgb background color===================================*/
 $anchorprimay : rgba(255,106,0,0.25);
@@ -48,6 +49,11 @@ $delred : red;
  $hovergreen : rgb(6, 3, 77) ;
 
 
+
+/*========== section bg --------*/
+.sectionbg1{
+    background-color: rgb(243, 243, 243);
+} 
 
 /*=========  Reset and Global Styles ========= */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
