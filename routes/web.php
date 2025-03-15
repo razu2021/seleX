@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::get('/',[FrontendController::class, 'index'])->name('index');
 
-
-Route::controller(FrontendController::class)->group(function(){
-    Route::get('/','index')->name('index');
-    Route::get('/about','about')->name('about');
-
+Route::controller(FrontendController::class)->prefix('product/')->group(function(){
+    Route::get('/fashion-and-clothing','product')->name('product_category');
 });
 
 

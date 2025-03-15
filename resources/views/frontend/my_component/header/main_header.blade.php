@@ -41,7 +41,7 @@
             <h5> All Category's </h5>
             <ul>
                 <li><a href="#">Electronics & Gadgets</a></li>
-                <li><a href="#">Fashion & Clothing</a></li>
+                <li><a href="{{route('product_category')}}">Fashion & Clothing</a></li>
                 <li><a href="#">Beauty & Personal Care</a></li>
                 <li><a href="#">Home & Kitchen</a></li>
                 <li><a href="#">Groceries & Food</a></li>

@@ -144,3 +144,18 @@ h6 {
 .input_button{
     font-size: 1.4rem;
 }
+
+
+
+
+
+
+/*========  common banner css =========*/
+.category_banner1 {
+    background-image: url('../../../../uploads/banner/banner1.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll; /* Instead of fixed */
+
+}

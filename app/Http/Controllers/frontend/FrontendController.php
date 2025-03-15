@@ -18,6 +18,12 @@ class FrontendController extends Controller
 
 
 
+    public function product(){
+        return view('frontend.pages.product');
+    }
+
+
+
 
 
 

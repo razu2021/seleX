@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar">
             <div class="logo">
-              <a href="">Selle_X.com</a>
+              <a href="{{route('index')}}">Selle_X.com</a>
             </div>
             <div class="search-bar">
                 <select class="custom_select">

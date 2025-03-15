@@ -151,3 +151,45 @@
         
     }
 }
+
+/*===========  category page css ======== design by razu */
+.category_banner1bg{
+    background-color: rgba(0,0,0,0.55);
+}
+.banner_1{
+    padding: 5rem 0rem;
+    text-align: center;
+    h1{
+        padding: 2rem 0rem;
+        color: $color0;
+    }
+    p{
+        color: $color0;
+    }
+}
+
+/*======  hotsell product css -==-===*/
+.hotsel_product_area{
+    background-color: $color0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    min-height: 35rem;
+    display: grid;
+    align-content: center;
+    overflow-x: hidden;
+}
+.hotsell_items{
+    min-height: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    margin: 1rem;
+    .hotsel_image{
+        height: 20rem;
+        width: auto;
+        object-fit: cover;
+        display: grid;
+        align-content: center;
+        img{
+            height: 15rem;
+            width: auto;
+        }
+    }
+}

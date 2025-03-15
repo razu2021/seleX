@@ -11,7 +11,7 @@
                             <h3>Best Seller's</h3>
                             <a href="#"><span> <i class="bi bi-bag-check"></i> </span> Top Price & Quality pick <i class="bi bi-chevron-double-right"></i></a>
                         </div>
-                    <div class="owl-carousel">
+                    <div class="owl-carousel todays_deals">
                         <div class="deals_product"> 
                             <div class="deals_product_image">
                                 <img src="{{asset('uploads/product/j1.jpg')}}" alt="product image">
@@ -67,7 +67,7 @@
                             <h3>BigSave</h3>
                             <a href="#"><span> <i class="bi bi-bag-check"></i> </span> Top Price & Quality pick <i class="bi bi-chevron-double-right"></i></a>
                         </div>
-                    <div class="owl-carousel">
+                    <div class="owl-carousel todays_deals">
                         <div class="deals_product"> 
                             <div class="deals_product_image">
                                 <img src="{{asset('uploads/product/j1.jpg')}}" alt="product image">
@@ -123,7 +123,7 @@
                             <h3>SuperDeal's</h3>
                             <a href="#"><span> <i class="bi bi-bag-check"></i> </span> Top Price & Quality pick <i class="bi bi-chevron-double-right"></i></a>
                         </div>
-                    <div class="owl-carousel">
+                    <div class="owl-carousel todays_deals">
                         <div class="deals_product"> 
                             <div class="deals_product_image">
                                 <img src="{{asset('uploads/product/j1.jpg')}}" alt="product image">
