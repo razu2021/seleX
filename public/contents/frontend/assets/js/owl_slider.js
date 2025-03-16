@@ -24,19 +24,58 @@ $(document).ready(function () {
 /**  ==================  hotsel product slider for global page ===== */
 $(document).ready(function () {
     $(".hotsell_product").owlCarousel({
-        loop: false, // Disable infinite loop
+        loop: true, // Disable infinite loop
         margin: 10, // Space between items
         nav: true, // Enable navigation arrows
         dots: false, // Disable dot navigation
         autoplay: true, // Enable auto sliding
         autoplayTimeout: 3000, // Slide every 3 seconds
-        navText: ["<span class='new_prev'> < </span>", "<span class='new_next'> > </span>"],
-       // center: true, // Disable centering (this can cause fewer items to show)
+        navText: ["<span class='hot_prev'> < </span>", "<span class='hot_next'> > </span>"],
+        //center: true, // Disable centering (this can cause fewer items to show)
         items: 6, // Ensure 6 items are displayed
         responsive: {
-            0: { items: 1 },  // Small screens (1 item)
-            600: { items: 2 }, // Medium screens (2 items)
-            1000: { items: 6 } // Large screens (6 items)
+            0: { 
+                items: 4,
+                autoWidth:true,
+
+             },  // Small screens (1 item)
+            600: { 
+                items: 4,
+                autoWidth:true,
+            }, // Medium screens (2 items)
+            1000: {
+                 items: 6
+                
+            } // Large screens (6 items)
+        }
+    });
+});
+
+
+
+/**  ==================  hotsel product slider for global page ===== */
+$(document).ready(function () {
+    $(".subcategory_list").owlCarousel({
+        loop: true, // Disable infinite loop
+        margin: 10, // Space between items
+        autoplay: true, // Enable auto sliding
+        autoplayTimeout: 3000, // Slide every 3 seconds
+        //center: true, // Disable centering (this can cause fewer items to show)
+        items: 6, // Ensure 6 items are displayed
+        responsive: {
+            0: { 
+                items: 4,
+                autoWidth:true,
+
+             },  // Small screens (1 item)
+            600: { 
+                items: 4,
+                autoWidth:true,
+            }, // Medium screens (2 items)
+            1000: {
+                 items: 6
+                
+            } // Large screens (6 items)
         }
     });
 });

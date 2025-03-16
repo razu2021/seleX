@@ -10,9 +10,19 @@
         ])
     </div>
     {{-- end breadcrub  --}}
+    <!-- hot sell product  -->
     <div id="hot_sell_product">
         @includeif('frontend/my_component/product/hotsel')
     </div>
+    <!-- sub category  -->
+    <div id="sub_category_list">
+        @includeif('frontend/my_component/product/subcategory_list')
+    </div>
+    <!-- category product list   -->
+    <div id="sub_category_list">
+        @includeif('frontend/my_component/product/product_card1')
+    </div>
+
 
    
 

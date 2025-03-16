@@ -29,6 +29,8 @@
     font-size: 62.5%;
   }
 }
+/*---- mixing css start---**/
+/*-------heading h1----------*/
 /*=========  Global SCSS Variables ====================================== */
 /*=========variable ... background color===================================*/
 /*=========variable ... rgb background color===================================*/
@@ -37,6 +39,21 @@
 /*========== section bg --------*/
 .sectionbg1 {
   background-color: rgb(243, 243, 243);
+}
+
+.section-padding {
+  padding: 6rem 0rem;
+}
+
+.section_heading {
+  padding: 2rem 0rem;
+}
+.section_heading h2 {
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+  color: #190e0e;
+  font-weight: 700;
 }
 
 /*=========  Reset and Global Styles ========= */
@@ -52,10 +69,6 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   font-family: "Roboto", sans-serif;
-}
-
-.section-padding {
-  padding: 6rem 0rem;
 }
 
 /**=====  Common CSS ======== */
@@ -128,6 +141,10 @@ h6 {
 
 .input_button {
   font-size: 1.4rem;
+}
+
+.custom_label {
+  font-size: 1.6rem;
 }
 
 /*========  common banner css =========*/
@@ -530,7 +547,6 @@ h6 {
 
 .banner_1 {
   padding: 5rem 0rem;
-  text-align: center;
 }
 .banner_1 h1 {
   padding: 2rem 0rem;
@@ -541,31 +557,106 @@ h6 {
 }
 
 /*======  hotsell product css -==-===*/
+.hotsel_heading {
+  padding: 0rem 2rem;
+  text-align: center;
+}
+
 .hotsel_product_area {
+  position: relative;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  min-height: 35rem;
-  display: grid;
-  align-content: center;
-  overflow-x: hidden;
+  padding: 4rem 0rem;
+  transition: all 0.35s;
+  border-radius: 1rem;
+}
+.hotsel_product_area:hover .hot_next, .hotsel_product_area:hover .hot_prev {
+  display: block;
+  background-color: #ff6a00;
+  color: #fff;
 }
 
 .hotsell_items {
-  min-height: 20rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  margin: 1rem;
+  text-align: center;
 }
 .hotsell_items .hotsel_image {
   height: 20rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  margin: 1rem;
   width: auto;
+  background-color: #fff;
   -o-object-fit: cover;
      object-fit: cover;
-  display: grid;
-  align-content: center;
+  overflow: hidden;
+  border-radius: 2rem;
 }
 .hotsell_items .hotsel_image img {
-  height: 15rem;
-  width: auto;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.hotsell_items .hotsel_pro_des a h6 {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-weight: 400;
+}
+.hotsell_items .hotsel_pro_des a h6:hover {
+  color: red;
+}
+
+.hot_prev, .hot_next {
+  position: absolute; /* Ensure buttons stay inside the parent */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  font-size: 4rem;
+  padding: 1rem;
+  z-index: 1;
+  border: 1px solid rgb(199, 199, 199);
+}
+
+.hot_prev {
+  left: 0;
+}
+
+.hot_next {
+  right: 0;
+}
+
+/*-----  sub category list css ----*/
+.product_subcategory_listed_area {
+  background-color: #ff6a00;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+.all_subcategory_list button {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+  background: #fff;
+}
+.all_subcategory_list a {
+  color: #000;
+  padding: 1rem;
+}
+
+/*=====  sub sub category ========*/
+.sub_sub_category_filter {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  min-height: 70rem;
+  padding: 2rem 1rem;
+}
+
+.filters1 {
+  padding: 1rem 0rem;
+}
+.filters1 h6 span {
+  color: red;
+  font-size: 1.9rem;
 }
 
 /*---- mixing css start---**/

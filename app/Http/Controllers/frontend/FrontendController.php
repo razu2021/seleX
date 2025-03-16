@@ -16,10 +16,18 @@ class FrontendController extends Controller
         return view('frontend.pages.about');
     }
 
-
-
+    /** category product  */
     public function product(){
-        return view('frontend.pages.product');
+        return view('frontend.pages.category_product');
+    }
+
+    /** category product  */
+    public function sub_category_product(){
+        return view('frontend.pages.sub_category_product');
+    }
+    /** category product  */
+    public function sub_sub_category_product(){
+        return view('frontend.pages.sub_sub_category_product');
     }
 
 
