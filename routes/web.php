@@ -17,6 +17,10 @@ Route::controller(FrontendController::class)->prefix('product/')->group(function
 });
 
 
+Route::controller(FrontendController::class)->prefix('product/purchese')->group(function(){
+    Route::get('/fashion-and-clothing/man-fashion/t-shirt/xyz','purchese_product')->name('purchese_product'); // sub category product
+});
+
 
 
 

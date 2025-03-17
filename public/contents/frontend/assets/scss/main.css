@@ -651,12 +651,121 @@ h6 {
   padding: 2rem 1rem;
 }
 
+.filter_heading {
+  border-bottom: 0.5rem solid black;
+}
+.filter_heading h4 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-weight: 700;
+  padding: 1rem 0rem;
+}
+
 .filters1 {
   padding: 1rem 0rem;
 }
+.filters1 h6 {
+  font-weight: 700;
+  padding: 2rem 0rem;
+}
 .filters1 h6 span {
-  color: red;
+  color: #3c00ff;
   font-size: 1.9rem;
+  background-color: rgba(255, 106, 0, 0.25);
+  padding: 0.1rem 1rem;
+  border-radius: 0.5rem;
+}
+
+/*=======  product purches css =========*/
+.product_details {
+  background-color: #fff;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.purches_details_area {
+  background-color: #fff;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.pur_head h5 {
+  color: #a3a3a3;
+}
+
+.delivery_option p {
+  padding: 1rem 1rem;
+}
+.delivery_option p span {
+  color: #3c00ff;
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+
+.delivery_info p {
+  padding: 0rem 1rem;
+}
+.delivery_info p span {
+  color: #3c00ff;
+}
+
+.payment_methods_option p {
+  padding: 1rem 1rem;
+}
+.payment_methods_option p span {
+  color: #3c00ff;
+}
+.payment_methods_option p strong {
+  color: #3c00ff;
+}
+.payment_methods_option ul li {
+  display: inline-block;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  height: 5rem;
+  width: auto;
+  margin: 1rem 0rem;
+}
+.payment_methods_option ul li a {
+  padding: 1.5rem;
+}
+.payment_methods_option ul li a img {
+  height: 5rem;
+  width: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.warranty_option {
+  padding: 1rem 0rem;
+}
+
+.warranty_note {
+  padding: 1rem 0rem;
+}
+.warranty_note p {
+  padding: 0rem 1.2rem;
+}
+.warranty_note p span {
+  color: red;
+}
+
+.product_protection .secure_payment {
+  padding: 1rem 1rem;
+}
+.product_protection .secure_payment h6 span {
+  color: #3c00ff;
+}
+.product_protection .secure_payment p {
+  padding: 0rem 2rem;
+}
+
+.sellex_purchese_note p {
+  color: gray;
+  font-style: italic;
 }
 
 /*---- mixing css start---**/

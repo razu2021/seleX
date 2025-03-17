@@ -34,6 +34,15 @@ class FrontendController extends Controller
 
 
 
+    /** Purchese product  */
+    public function purchese_product(){
+        return view('frontend.pages.purchase');
+    }
+
+
+
+
+
 
 
 

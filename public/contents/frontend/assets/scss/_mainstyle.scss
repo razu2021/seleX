@@ -262,12 +262,135 @@
     min-height: 70rem;
     padding: 2rem 1rem;
 }
+.filter_heading{
+    border-bottom:.5rem solid black;
+    h4{
+        @include heading4($font-weight:700);
+        padding: 1rem 0rem;
+    }
+}
 .filters1{
     padding: 1rem 0rem;
     h6{
+        font-weight: 700;
+        padding: 2rem 0rem;
         span{
-            color: red;
+            color: $color3;
             font-size: 1.9rem;
+            background-color: $filtericonbg;
+            padding: .1rem 1rem;
+            border-radius: .5rem;
+        } 
+    }
+}
+
+
+/*=======  product purches css =========*/
+.product_details{
+    background-color: $bgwhite;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+
+
+
+
+
+
+
+
+.purches_details_area{
+    background-color: $bgwhite;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+
+.pur_head{
+    h5{
+        color:$purcheseheadingColor ;
+     }
+}
+.delivery_option{
+     p{
+        padding: 1rem 1rem;
+        span{
+            color: $purcheseiconColor;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+     }
+}
+.delivery_info{
+    p{
+        padding: 0rem 1rem;
+        span{
+            color: $purcheseiconColor;
         }
     }
 }
+
+.payment_methods_option{
+    p{
+        padding: 1rem 1rem;
+        span{
+            color: $purcheseiconColor;
+        }
+        strong{
+            color: $cashonstatus;
+        }
+    }
+    ul li{
+        display: inline-block;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        height: 5rem;
+        width: auto;
+        margin: 1rem 0rem;
+        a{
+            padding: 1.5rem;
+            img{
+                height: 5rem;
+                width: auto;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+.warranty_option{
+    padding: 1rem 0rem;
+}
+.warranty_note{
+    padding: 1rem 0rem;
+    p{
+        padding: 0rem 1.2rem;
+        span{
+            color: red;
+        }
+    }
+}
+
+.product_protection{
+    .secure_payment{
+        padding: 1rem 1rem;
+        h6{
+            span{
+                color: $purcheseiconColor;
+            }
+        }
+        p{
+            padding: 0rem 2rem;
+        }
+    }
+}
+
+.sellex_purchese_note{
+    p{
+        color: gray;
+        font-style: italic;
+    };
+}
+

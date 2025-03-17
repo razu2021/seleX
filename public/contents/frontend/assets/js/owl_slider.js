@@ -80,4 +80,31 @@ $(document).ready(function () {
     });
 });
 
+/**  ==================   product purchese  slider for global page ===== */
+$(document).ready(function () {
+    $(".product_purchese_image").owlCarousel({
+        loop: true, // Disable infinite loop
+        margin: 10, // Space between items
+        autoplay: true, // Enable auto sliding
+        autoplayTimeout: 3000, // Slide every 3 seconds
+        //center: true, // Disable centering (this can cause fewer items to show)
+        items: 1, // Ensure 6 items are displayed
+        responsive: {
+            0: { 
+                items: 4,
+                autoWidth:true,
+
+             },  // Small screens (1 item)
+            600: { 
+                items: 4,
+                autoWidth:true,
+            }, // Medium screens (2 items)
+            1000: {
+                 items: 1
+                
+            } // Large screens (6 items)
+        }
+    });
+});
+
 
