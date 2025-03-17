@@ -7,8 +7,9 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="product_details">
-                        <div class="purches_product_title card1_details">
-                            <h4><span>March</span> Elegant Leather Handbag for Women – Stylish & Spacious Shoulder Bag</h4>
+                        <div class="offers_byproducts">
+                            <p>Big Save 70% of </p>
+                            <h4> <strong>Welcome </strong> Deals</h4>
                         </div>
                         <div class="row">
                         <div class="col-lg-6">
@@ -24,15 +25,35 @@
                                         <img src="{{asset('uploads/product/bag/b3.jpg')}}" alt="">
                                     </div>
                                 </div>
+                                <div class="zoom-result" id="zoom-result"></div>
                             </div>
                         </div>
                         <!-- col end  -->
                         <div class="col-lg-6">
                             <div class="product_p_details">
                                 <div class="price_title">
-                                    <h2>BDT 2500  <del> 2850 </del></h2>
+                                    <h2><strong> BDT 2500 </strong>  <del> 2850 </del></h2>
+                                    <p class="offer_ex"><span>the offer will be expired in 2 days later</span></p>
+                                    <h5 class="title"><span>March</span> Elegant Leather Handbag for Women – Stylish & Spacious Shoulder Bag</h5>
+                                    <p class="store_reviews"><span class="store_reviews_icon"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i>  <i class="bi bi-star-half"></i><span><strong> |4.5 | 452 store review</strong>  </p>
+                                    <p class="total_solde"> <b> 678 sold </b></p>
                                 </div>
+                                    <div class="purchese_instok">
+                                        <label for="Select"><span class="instocks"> In Stock  </span></label>
+                                        <select class="form-select form-select-sm w-50 custom_select" aria-label="Small select example">
+                                            <option selected>Quantity 1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                          </select>
+                                    </div>
+                                    <div class="purchese_button pt-4">
+                                        <a href="" class="addtocart"><button>Add to cart </button></a>
+                                        <a href="" class="buynow"><button>Buy Now</button></a>
+                                    </div>
+                               
                             </div>
+                            {{-- product details end here  --}}
                         </div>
                         </div>
                     </div>

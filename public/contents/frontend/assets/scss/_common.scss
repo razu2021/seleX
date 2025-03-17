@@ -26,6 +26,9 @@ $bgwhite: #fff;
 $bgprimary : #ff6a00;
 $bgsecondary : #4415ec;
 $sub_category_listbg: #ff6a00;
+$offerbyproductbg : linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+$addtocartbg: #ff6a00;
+$buynowbg : #4415ec;
 
 /*=========variable ... rgb background color===================================*/
 $anchorprimay : rgba(255,106,0,0.25);
@@ -50,6 +53,9 @@ $section_heading_color:#190e0e;
 $purcheseiconColor: #3c00ff;
 $purcheseheadingColor: #a3a3a3;
 $cashonstatus: #3c00ff;
+$reviewicon: #fdc304e5;
+$addtocart : #fff;
+$buynow: #fff;
 
 /*======= Variable -----  Hover color ====================================**/
  $hover0 : #ff6a00;
@@ -175,4 +181,21 @@ h6 {
     background-position: center;
     background-attachment: scroll; /* Instead of fixed */
 
+}
+
+/*-- offer by products css ---*/
+.offers_byproducts{
+    display: flex;
+    justify-content: space-between;
+    background: $offerbyproductbg;
+    padding: 1rem;
+    border-radius: .5rem;
+    p{
+        color: $color0;
+    }
+    h4{
+        strong{
+            color: $color0;
+        }
+    }
 }
