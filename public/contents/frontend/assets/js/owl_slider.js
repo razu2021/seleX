@@ -82,13 +82,14 @@ $(document).ready(function () {
 
 /**  ==================   product purchese  slider for global page ===== */
 $(document).ready(function () {
-    $(".product_purchese_image").owlCarousel({
-        loop: true, // Disable infinite loop
+   var owl =  $(".product_purchese_image").owlCarousel({
+        loop: false, // Disable infinite loop
         margin: 10, // Space between items
-        autoplay: true, // Enable auto sliding
+        autoplay: false, // Enable auto sliding
         autoplayTimeout: 3000, // Slide every 3 seconds
-        //center: true, // Disable centering (this can cause fewer items to show)
         items: 1, // Ensure 6 items are displayed
+        dots:false,
+        nav:false,
         responsive: {
             0: { 
                 items: 4,
@@ -105,6 +106,17 @@ $(document).ready(function () {
             } // Large screens (6 items)
         }
     });
+
+
+        // Indicator thumbnail ক্লিক করলে সংশ্লিষ্ট ইমেজ দেখাবে
+        $(".indicator-item").click(function(){
+            var index = $(this).data("id"); // যে ইন্ডিকেটর ক্লিক করা হয়েছে তার index নিচ্ছে
+            owl.trigger("to.owl.carousel", [index, 300]); // ওই index এর স্লাইড দেখাবে
+        });
 });
 
-
+$(document).ready(function () {
+    $(".block__pic").imagezoomsl({
+        zoomrange: [3, 3]
+    });
+});

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="product_details">
-                        <div class="offers_byproducts">
+                        <div class="offers_byproducts mb-4">
                             <p>Big Save 70% of </p>
                             <h4> <strong>Welcome </strong> Deals</h4>
                         </div>
@@ -16,16 +16,23 @@
                             <div class="purchese_product_images">
                                 <div class="owl-carousel owl-theme product_purchese_image">
                                     <div class="purchese_product_items">
-                                        <img src="{{asset('uploads/product/bag/b1.jpg')}}" alt="">
+                                        <img src="{{asset('uploads/product/bag/b1.jpg')}}" alt=""  class="block__pic">
                                     </div>
                                     <div class="purchese_product_items">
-                                        <img src="{{asset('uploads/product/bag/b2.jpg')}}" alt="">
+                                        <img src="{{asset('uploads/product/bag/b2.jpg')}}" alt="" class="block__pic">
                                     </div>
+                                    
                                     <div class="purchese_product_items">
-                                        <img src="{{asset('uploads/product/bag/b3.jpg')}}" alt="">
+                                        <img src="{{asset('uploads/product/bag/ts1.jpg')}}" alt="" class="block__pic">
                                     </div>
                                 </div>
-                                <div class="zoom-result" id="zoom-result"></div>
+
+                                <div class="indicator_thumb">
+                                    <div class="indicator-item" data-id="0"><img src="{{asset('uploads/product/bag/b1.jpg')}}"></div>
+                                    <div class="indicator-item" data-id="1"><img src="{{asset('uploads/product/bag/b2.jpg')}}"></div>
+                                    <div class="indicator-item" data-id="2"><img src="{{asset('uploads/product/bag/ts1.jpg')}}"></div>
+                                </div>
+                                
                             </div>
                         </div>
                         <!-- col end  -->
@@ -38,6 +45,24 @@
                                     <p class="store_reviews"><span class="store_reviews_icon"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i>  <i class="bi bi-star-half"></i><span><strong> |4.5 | 452 store review</strong>  </p>
                                     <p class="total_solde"> <b> 678 sold </b></p>
                                 </div>
+                                <div class="size-selection">
+                                    <p>Select Size:</p>
+                                    <div class="size-options">
+                                        <input type="radio" id="size-s" name="size" value="S">
+                                        <label for="size-s">S</label>
+
+                                        <input type="radio" id="size-m" name="size" value="M">
+                                        <label for="size-m">M</label>
+
+                                        <input type="radio" id="size-l" name="size" value="L">
+                                        <label for="size-l">L</label>
+
+                                        <input type="radio" id="size-xl" name="size" value="XL">
+                                        <label for="size-xl">XL</label>
+                                        <input type="radio" id="size-xl" name="size" value="XL">
+                                        <label for="size-xl">45</label>
+                                    </div>
+                                </div>
                                     <div class="purchese_instok">
                                         <label for="Select"><span class="instocks"> In Stock  </span></label>
                                         <select class="form-select form-select-sm w-50 custom_select" aria-label="Small select example">
@@ -48,8 +73,11 @@
                                           </select>
                                     </div>
                                     <div class="purchese_button pt-4">
-                                        <a href="" class="addtocart"><button>Add to cart </button></a>
-                                        <a href="" class="buynow"><button>Buy Now</button></a>
+                                        <a href="" class="addtocart"><button >Add to cart </button></a>
+                                        <a href="" class="buynow"><button >Buy Now</button></a>
+                                    </div>
+                                    <div class="p_direct_contact">
+                                        <a href=""><button class=""> <span> <i class="bi bi-whatsapp"></i> </span>+880 1817078309</button></a>
                                     </div>
                                
                             </div>

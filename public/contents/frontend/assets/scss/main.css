@@ -694,6 +694,33 @@ h6 {
 }
 
 /*=======  product purches css =========*/
+.purchese_product_images {
+  background-color: rgb(243, 240, 240);
+  width: 100%;
+  height: auto;
+  padding: 2rem;
+}
+
+.indicator_thumb {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.indicator-item img {
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  border: 2px solid #d4d3d3;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.indicator-item img:hover {
+  border: 2px solid #007bff;
+}
+
 .product_details {
   background-color: #fff;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -740,19 +767,61 @@ h6 {
   color: #3c00ff;
   font-size: 2rem;
 }
+.product_p_details .purchese_button {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+.product_p_details .purchese_button .addtocart {
+  width: 100%;
+}
 .product_p_details .purchese_button .addtocart button {
   border: none;
+  width: 100%;
   background-color: #ff6a00;
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
 }
+.product_p_details .purchese_button .addtocart button:hover {
+  background-color: transparent;
+  border: 1px solid gray;
+  color: #000;
+}
+.product_p_details .purchese_button .buynow {
+  width: 100%;
+}
 .product_p_details .purchese_button .buynow button {
+  width: 100%;
   border: none;
   background-color: #4415ec;
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+}
+.product_p_details .purchese_button .buynow button:hover {
+  background-color: transparent;
+  border: 1px solid gray;
+  color: #000;
+}
+
+.p_direct_contact {
+  margin: 4rem 0rem;
+  text-align: center;
+}
+.p_direct_contact a button {
+  width: 100%;
+  border: none;
+  background-color: #cecccc;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.35s;
+}
+.p_direct_contact a button:hover {
+  background-color: transparent;
+  border: 1px solid gray;
+  color: #000;
 }
 
 .purches_details_area {
@@ -835,6 +904,57 @@ h6 {
 .sellex_purchese_note p {
   color: gray;
   font-style: italic;
+}
+
+/*======== select product size code ====== */
+.size-selection {
+  font-family: Arial, sans-serif;
+  margin: 15px 0;
+}
+
+.size-selection p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.size-options {
+  display: flex;
+  gap: 10px;
+}
+
+.size-options input {
+  display: none; /* Hide default radio buttons */
+}
+
+.size-options label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.size-options label:hover {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.size-options input:checked + label {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
 /*---- mixing css start---**/
