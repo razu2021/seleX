@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\backend\admin\AdminController;
+<<<<<<< HEAD
 use App\Http\Controllers\backend\category\categoryController;
+=======
+use App\Http\Controllers\product\productController;
+>>>>>>> d7ad350c6f867dee02f1e5663602f2cd52e40b96
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +18,7 @@ Route::get('admin/dashboard',[AdminController::class, 'index'])->name('admin.das
 
 
 
+<<<<<<< HEAD
 /** -------  optimization  clear code ------- */
 Route::get('admin/dashboard/cc',function(){
     Artisan::call('config:clear');
@@ -40,12 +45,18 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
     Route::get('restore','restore')->name('restore');
     Route::get('delete','delete')->name('delete');
 });
+=======
+
+
+Route::get('/product',[productController::class,'add'])->name('add_product');
+>>>>>>> d7ad350c6f867dee02f1e5663602f2cd52e40b96
 
 
 
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -98,3 +109,6 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
 /**================   Admin auth middleware route protection ============ */
 });
 /**================   Admin auth middleware route protection ============ */
+=======
+});
+>>>>>>> d7ad350c6f867dee02f1e5663602f2cd52e40b96
