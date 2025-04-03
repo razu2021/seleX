@@ -29456,7 +29456,7 @@ h5,
     font-weight: 600;
     margin-left: -1rem;
     margin-right: -1rem;
-    z-index: 1020;
+    z-index: +1;
     background-image: none;
     min-height: var(--falcon-top-nav-height);
 }
@@ -34158,4 +34158,25 @@ html[data-bs-theme=dark] .bg-priority-low:checked {
 
 .input-search-width {
     width: 13.75rem;
+}
+
+
+.sidebar_wrapper {
+    position: relative;
+}
+
+.sidebar_card {
+    position: sticky;
+    top: 0;
+    height: 70vh;
+    overflow: hidden;
+    padding-bottom: 2rem;
+    padding-right: 1rem;
+   
+    transition: opacity 0.5s ease-in-out;
+}
+
+.sidebar_card:hover{
+    overflow-y: auto;
+    opacity: 1;
 }
