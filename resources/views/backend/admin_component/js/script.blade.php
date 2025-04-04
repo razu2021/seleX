@@ -39,3 +39,51 @@
 </script>
 
 
+
+{{--   image preview and deleter or remove item --}}
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const previewContainer = document.getElementById('previewContainer');
+
+    imageInput.addEventListener('change', function () {
+        previewContainer.innerHTML = ''; // পুরাতন preview clear
+
+        Array.from(this.files).forEach((file, index) => {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const col = document.createElement('div');
+                    col.classList.add('col-md-3', 'position-relative', 'mb-3');
+
+                    col.innerHTML = `
+                        <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px;with:auto; object-fit: cover;">
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-index="${index}">X</button>
+                    `;
+
+                    previewContainer.appendChild(col);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+
+    // Remove Preview Item (UI only)
+    previewContainer.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-btn')) {
+            const index = e.target.getAttribute('data-index');
+            const dt = new DataTransfer();
+
+            const files = imageInput.files;
+            Array.from(files).forEach((file, i) => {
+                if (i != index) {
+                    dt.items.add(file); // যেটা remove হয়নি সেটা রাখো
+                }
+            });
+
+            imageInput.files = dt.files;
+            e.target.parentElement.remove(); // UI থেকে remove
+        }
+    });
+</script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend\category;
 
 use App\Http\Controllers\Controller;
 use App\Models\Seo;
+use App\Models\Seo_image;
 use Illuminate\Support\Facades\Auth;
 use Str;
 use Carbon\Carbon;
@@ -35,7 +36,12 @@ class categoryController extends Controller
     * ---------  view page functionality --------
     **/
     public function view($id,$slug){
-        $data= Category::where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $data= Category::with(['metaData'=>function($query){
+            $query->where('model_type','Category'); // metaData filter   
+        },
+        'metaData.images' // ✅ nested eager load (Seo -> Seo_image
+        ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
+       //dd($data);
         return view('backend.categorys.category.view',compact('data'));
     }
 
@@ -85,14 +91,62 @@ class categoryController extends Controller
             'creator_id' => $creator,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
-        Seo::create([
+
+
+
+
+       $metadat = Seo::create([
+            // defualt
             'unique_id'=> $insert->id,
             'model_type'=>'Category',
+            // genrel feilds 
+            'meta_title'=>$request->meta_title,
+            'meta_description'=>$request->meta_description,
+            'meta_keywords'=>$request->meta_keywords,
+            'meta_robots'=>$request->meta_robots,
+            'canonical_url'=>$request->canonical_url,
+            'hreflang_tags' => json_encode($request->hreflang_tags, JSON_UNESCAPED_UNICODE),
+            'structured_data' => json_encode($request->structured_data, JSON_UNESCAPED_UNICODE),
+            // open graph 
+            'og_title'=>$request->og_title,
+            'og_description'=>$request->og_description,
+            'og_url'=>$request->og_url,
+            'og_type'=>$request->og_type,
+            'og_locale'=>$request->og_locale,
+            // twitter card
+            'twitter_card'=>$request->twitter_card,
+            'twitter_title'=>$request->twitter_title,
+            'twitter_description'=>$request->twitter_description,
+            'twitter_site'=>$request->twitter_site,
+            // whatsapp 
+            'whatsapp_title'=>$request->whatsapp_title,
+            'whatsapp_description'=>$request->whatsapp_description,
+            // pinterest
+            'pinterest_description'=>$request->pinterest_description,
+            'pinterest_rich_pin'=>$request->pinterest_rich_pin,
+            // image
+            'seo_image'=>'seo_image',
+
+            'slug'=>$slug,
+            'creator_id' => $creator,
+            'created_at' => Carbon::now()->toDateTimeString(),
         ]);
 
+      // uploads image for seo 
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('uploads/seo', $fileName, 'public');
 
+                Seo_image::create([
+                    'seo_id'     => $metadat->id,
+                    'model_type' => 'Seo',
+                    'image_name' => $fileName, // ✅ এখানে ভ্যারিয়েবল ব্যবহার করা হয়েছে সঠিকভাবে
+                ]);
+            }
+        }
 
-
+      
 
         // insert Successfully 
         if($insert){

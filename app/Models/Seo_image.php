@@ -4,14 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Seo extends Model
+class Seo_image extends Model
 {
     protected $primaryKey = 'id';
     protected $guarded = [];
+    
 
-
-
-    public function images()  {
-        return $this->hasMany(Seo_image::class);
-    }
 }

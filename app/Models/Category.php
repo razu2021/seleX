@@ -18,5 +18,10 @@ class Category extends Model
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
+
+
+    public function metaData(){
+        return $this->hasOne(Seo::class,'unique_id','id');
+    }
     
 }

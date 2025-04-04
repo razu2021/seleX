@@ -15,7 +15,7 @@
                   </div>
                 </div>
               </div>
-          <form action="{{route('category.submit')}}" method="post">
+          <form action="{{route('category.submit')}}" method="post" enctype="multipart/form-data">
           @csrf
             <div class="row">
                 <div class="col-lg-8">
@@ -26,27 +26,25 @@
                         <div class="card-body">
                             <div class="row gx-2">
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="product-name">Categorie Name:</label>
-                                    <input class="form-control" name="category_name" id="product-name" type="text">
+                                    <label class="form-label" for="category_name">Categorie Name:</label>
+                                    <input class="form-control" name="category_name" id="category_name" type="text" value="{{old('category_name')}}">
                                     <label class="text-danger fw-medium">@error('category_name') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="manufacturar-name">Categorie Title:</label>
-                                    <input class="form-control" name="category_title" id="manufacturar-name" type="text">
+                                    <label class="form-label" for="category_title">Categorie Title:</label>
+                                    <input class="form-control" name="category_title" id="category_title" type="text" value="{{old('category_title')}}">
                                     <label class="text-danger fw-medium">@error('category_title') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="identification-no">Categorie Descriptions:</label>
-                                    <input class="form-control" name="category_desc" id="identification-no" type="text">
+                                    <label class="form-label" for="category_desc">Categorie Descriptions:</label>
+                                    <input class="form-control" name="category_desc" id="category_desc" type="text" value="{{old('category_desc')}}">
                                     <label class="text-danger fw-medium" >@error('category_desc') {{$message}} @enderror</label>
                                 </div>
                             </div>
-                            
-                          
                         </div>
                       </div>
                 </div>
-                
+                {{-- card end --}}
                 <div class="col-lg-4 ">
                   <div class="sidebar_wrapper">
                     <div class="sidebar_card">
@@ -73,8 +71,8 @@
                       <div class="card">
                           <div class="card-body">
                             <div class="col-12">
-                              <label class="form-label" for="manufacturar-name">Categorie Url:</label>
-                              <input class="form-control" name="custom_url" id="manufacturar-name" type="text" placeholder="optional !">
+                              <label class="form-label" for="custom_url">Categorie Url:</label>
+                              <input class="form-control" name="custom_url" id="custom_url" type="text" placeholder="optional !" value="{{old('custom_url')}}">
                               
                             </div>
                           </div>
@@ -128,32 +126,32 @@
                         <div class="card-body">
                           <h5>SEO for Facebook & Linkedin </h5>
                           <div class="col-12">
-                            <label class="form-label" for="og_title-name">Og Title:</label>
-                            <input class="form-control" name="og_title" id="og_title" type="text">
+                            <label class="form-label" for="og_title">Og Title:</label>
+                            <input class="form-control" name="og_title" id="og_title" type="text" value="{{old('og_title')}}">
                            
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="og_description-">Og Descriptions:</label>
-                            <input class="form-control" name="og_description" id="og_description" type="text" >
+                            <input class="form-control" name="og_description" id="og_description" type="text" value="{{old('og_description')}}">
                            
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="og_url">Og Url:</label>
-                            <input class="form-control" name="og_url" id="og_url" type="text">
+                            <input class="form-control" name="og_url" id="og_url" type="text" value="{{old('og_url')}}">
                             
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="og_type">Og Type:</label>
-                            <input class="form-control" name="og_type" id="og_type" type="text" placeholder="optional !">
+                            <input class="form-control" name="og_type" id="og_type" type="text" value="{{old('og_type')}}">
                             
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="og_locale">Og Local Language :</label>
-                            <input class="form-control" name="og_locale" id="og_locale" type="text" placeholder="optional !">
+                            <input class="form-control" name="og_locale" id="og_locale" type="text" value="{{old('og_locale')}}">
                           </div>
                           {{-- end  --}}
                         </div>
@@ -164,22 +162,22 @@
                           <h5>SEO for Twitter Meta Feilds </h5>
                           <div class="col-12">
                             <label class="form-label" for="twitter_card">Twitter Card:</label>
-                            <input class="form-control" name="twitter_card" id="twitter_card" type="text" >
+                            <input class="form-control" name="twitter_card" id="twitter_card" type="text" value="{{old('twitter_card')}}">
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="twitter_title">Twitter Title:</label>
-                            <input class="form-control" name="twitter_title" id="twitter_title" type="text" >
+                            <input class="form-control" name="twitter_title" id="twitter_title" type="text" value="{{old('twitter_title')}}">
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="twitter_description">twitter_description :</label>
-                            <input class="form-control" name="twitter_description" id="twitter_description-" type="text">
+                            <input class="form-control" name="twitter_description" id="twitter_description-" type="text" value="{{old('twitter_description')}}">
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="manufacturar-name">twitter site:</label>
-                            <input class="form-control" name="twitter_site" id="twitter_site" type="text">
+                            <input class="form-control" name="twitter_site" id="twitter_site" type="text" value="{{old('twitter_site')}}">
                           </div>
                           {{-- end  --}}
                         </div>
@@ -190,12 +188,12 @@
                           <h5>SEO for WhatsApp & Messenger Meta Fields </h5>
                           <div class="col-12">
                             <label class="form-label" for="whatsapp_title">WhatsApp Title:</label>
-                            <input class="form-control" name="whatsapp_title" id="whatsapp_title" type="text">
+                            <input class="form-control" name="whatsapp_title" id="whatsapp_title" type="text" value="{{old('whatsapp_title')}}">
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="whatsapp_description">WhatsApp Descriptions :</label>
-                            <input class="form-control" name="whatsapp_description" id="whatsapp_description" type="text"> 
+                            <input class="form-control" name="whatsapp_description" id="whatsapp_description" type="text" value="{{old('whatsapp_description')}}"> 
                           </div>
                           {{-- end  --}}
                         </div>
@@ -206,12 +204,12 @@
                           <h5>SEO for Pinterest Meta Fields </h5>
                           <div class="col-12">
                             <label class="form-label" for="pinterest_description">pinterest description :</label>
-                            <input class="form-control" name="pinterest_description" id="pinterest_description" type="text" placeholder="optional !">
+                            <input class="form-control" name="pinterest_description" id="pinterest_description" type="text" value="{{old('pinterest_description')}}">
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
                             <label class="form-label" for="pinterest_rich_pin">Pinterest Rich pin :</label>
-                            <input class="form-control" name="pinterest_rich_pin" id="pinterest_rich_pin" type="text">
+                            <input class="form-control" name="pinterest_rich_pin" id="pinterest_rich_pin" type="text" value="{{old('pinterest_rich_pin')}}">
                           </div>
                           {{-- end --}}
                         </div>
@@ -222,17 +220,18 @@
                         <div class="card-header">
                           <h5 class="mb-0">Upload Photos</h5>
                         </div>
-                          <div class="dropzone" id="my-dropzone"></div>
+                          <div class="col-12">
+                            <input class="form-control" name="images[]" id="imageInput" type="file" multiple>
+                          </div>
+                          <div id="previewContainer" class="row mt-3 px-2"></div>
                         </div>
                     </div>
                     {{-- card end  --}}
-
-
                   </div>
                 </div>
             </div> 
             {{-- row end  --}}
-            <div class="row">
+            <div class="row mx-2">
               <div class="card mt-3 ">
                 <div class="card-body mx-4">
                   <div class="row flex-between-center">

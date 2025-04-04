@@ -17,6 +17,7 @@
               </div>
             <div class="row">
                 <div class="col-lg-8">
+
                     <div class="card mb-3">
                         <div class="card-header bg-body-tertiary">
                           <h5 class="mb-0">Categorie information</h5>
@@ -56,6 +57,188 @@
                               </table>
                         </div>
                       </div>
+                      {{-- card end  --}}
+                    <div class="card mb-3">
+                        <div class="card-header bg-body-tertiary">
+                          <h5 class="mb-0">Meta information</h5>
+                        </div>
+                        <div class="card-header bg-body-tertiary">
+                            <ul class="nav nav-pills" id="pill-myTab" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" id="pill-google-tab" data-bs-toggle="tab" href="#pill-tab-google" role="tab" aria-controls="pill-tab-google" aria-selected="true"><i class="bi bi-google"></i></a></li>
+                                <li class="nav-item"><a class="nav-link" id="pill-facebook-tab" data-bs-toggle="tab" href="#pill-tab-facebook" role="tab" aria-controls="pill-tab-facebook" aria-selected="false"><i class="bi bi-facebook"></i></a></li>
+                                <li class="nav-item"><a class="nav-link" id="pill-twitter-tab" data-bs-toggle="tab" href="#pill-tab-twitter" role="tab" aria-controls="pill-tab-twitter" aria-selected="false"><i class="bi bi-twitter"></i> </a></li>
+                                <li class="nav-item"><a class="nav-link" id="pill-whatsapp-tab" data-bs-toggle="tab" href="#pill-tab-whatsapp" role="tab" aria-controls="pill-tab-whatsapp" aria-selected="false"><i class="bi bi-whatsapp"></i></a></li>
+                                <li class="nav-item"><a class="nav-link" id="pill-pin-tab" data-bs-toggle="tab" href="#pill-tab-pin" role="tab" aria-controls="pill-tab-pin" aria-selected="false"><i class="bi bi-pinterest"></i> pin</a></li>
+                                <li class="nav-item"><a class="nav-link" id="pill-seo_image-tab" data-bs-toggle="tab" href="#pill-tab-seo_image" role="tab" aria-controls="pill-tab-seo_image" aria-selected="false"><i class="bi bi-pinterest"></i> Images</a></li>
+                              </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content border p-3 mt-3" id="pill-myTabContent">
+                                <div class="tab-pane fade show active" id="pill-tab-google" role="tabpanel" aria-labelledby="google-tab">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <td>Meta Title </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->meta_title ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Meta Description </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->meta_description ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Meta Keywords </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->meta_keywords ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Meta Robots </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->meta_robots ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Canonicale Url  </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->canonical_url ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>hreflang tags  </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->hreflang_tags ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Structured Data  </td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->structured_data ?? 'No Data Available !'}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- tab end  --}}
+                                <div class="tab-pane fade" id="pill-tab-facebook" role="tabpanel" aria-labelledby="facebook-tab">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <td>Og Title</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->og_title ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Og Description</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->og_description ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Og url</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->og_url ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Og Type</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->og_type ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Og Locale</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->og_locale ?? 'No Data Available'}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- tab end --}}
+                                <div class="tab-pane fade" id="pill-tab-twitter" role="tabpanel" aria-labelledby="twitter-tab">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <td>Twitter Card</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->twitter_card ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Twitter Card</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->twitter_title ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Twitter Description</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->twitter_description ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Twitter Description</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->twitter_site ?? 'No Data Available'}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- tab end --}}
+                                <div class="tab-pane fade" id="pill-tab-whatsapp" role="tabpanel" aria-labelledby="whatsapp-tab">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <td>Whatsapp Title</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->whatsapp_title ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Whatsapp Description</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->whatsapp_description ?? 'No Data Available'}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- tab end --}}
+                                <div class="tab-pane fade" id="pill-tab-pin" role="tabpanel" aria-labelledby="pin-tab">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <td>Pinterest Description</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->pinterest_description ?? 'No Data Available'}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Pinterest Description</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>{{$data->metaData?->pinterest_rich_pin ?? 'No Data Available'}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- tab end --}}
+                                <div class="tab-pane fade" id="pill-tab-seo_image" role="tabpanel" aria-labelledby="seo_image-tab">
+                                    <table class="table table-bordered" style="overflow: scroll">
+                                        <tbody>
+                                          <tr>
+                                            <td>Seo Image</td>
+                                            <td><i class="bi bi-chevron-double-right"></i></td>
+                                            <td>
+                                              @foreach($data->metaData->images as $image)
+                                                  <img src="{{ asset('storage/uploads/seo/' . $image->image_name) }}" alt="SEO Image" height="200px" width="auto" >
+                                              @endforeach
+                                            </td>
+                                          </tr>
+                                          
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- tab end --}}
+
+
+
+                            </div>
+                        </div>
+                      </div>
+                      {{-- card end  --}}
+
+
+
+
+
+
                 </div>
                 
                 <div class="col-lg-4">
@@ -106,8 +289,9 @@
                           </div>
                         </div>
                       </div>
-                      {{--  col end  --}}
+                      {{-- card end --}}
                 </div>
+                 {{--  col end  --}}
             </div>
         </div>
     </main>
