@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('model_type')->nullable();
             $table->string('image_name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seo_images');
+        Schema::create('seo_images',function(Blueprint $table){
+            $table->dropSoftDeletes();
+        });
     }
 };

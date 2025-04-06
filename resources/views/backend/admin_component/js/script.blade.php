@@ -10,33 +10,72 @@
 <script src="{{asset('contents/backend/assets')}}/vendors/lodash/lodash.min.js"></script>
 <script src="{{asset('contents/backend/assets')}}/vendors/list.js/list.min.js"></script>
 <script src="{{asset('contents/backend/assets')}}/assets/js/theme.js"></script>
+<script src="{{asset('contents/backend/assets')}}/assets/js/custom.js"></script>
 
 <!-- Dropzone JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <script>
-    Dropzone.autoDiscover = false;
+    // Wait for the DOM to load before adding event listeners
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all delete buttons
+        const deleteButtons = document.querySelectorAll('.dropdown-item.text-danger');
+        
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const formId = 'deleteForm' + id;
 
-    let myDropzone = new Dropzone("#my-dropzone", {
-        url: "/upload",
-        autoProcessQueue: false,  // Prevent auto upload
-        paramName: "files[]",  // Match the input name
-        maxFilesize: 5,  // 5MB max file size
-        acceptedFiles: "image/*",  // Accept only images
-        addRemoveLinks: true,
-        parallelUploads: 10,  // Allow multiple files
-        uploadMultiple: true,
-    });
-
-    document.querySelector("#my-form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        myDropzone.processQueue();  // Manually trigger Dropzone upload
-    });
-
-    myDropzone.on("sending", function (file, xhr, formData) {
-        formData.append("_token", document.querySelector('input[name="_token"]').value);
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't to Delete this Record!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form programmatically if confirmed
+                        document.getElementById(formId).submit();
+                    }
+                });
+            });
+        });
     });
 </script>
+
+{{-- <script>
+    document.querySelectorAll('.deleteButton').forEach(button => {
+    button.addEventListener('click', function() {
+        var button = this; // Button clicked
+        var id = button.getAttribute('data-id'); // Get the id from data-id attribute
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Disable the button or hide it after clicking
+                button.disabled = true; // Disable button
+                button.innerHTML = 'Deleting...'; // Optional: Change button text
+
+                // Submit the form programmatically if confirmed
+                document.getElementById('deleteForm').submit();
+            }
+        });
+    });
+});
+</script> --}}
 
 
 
@@ -87,3 +126,73 @@
         }
     });
 </script>
+
+
+
+{{-- bulk selection and delete  --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const applyBtn = document.getElementById('bulk-apply-btn');
+      const actionSelect = document.getElementById('bulk-action-select');
+      
+
+  
+      applyBtn.addEventListener('click', function () {
+        const selectedAction = actionSelect.value;
+        const selectedCheckboxes = document.querySelectorAll('input[data-bulk-select-row]:checked');
+        let selectedIDs = [];
+  
+        selectedCheckboxes.forEach(cb => selectedIDs.push(cb.value));
+  
+        if (!selectedAction || selectedIDs.length === 0) {
+          Swal.fire('Warning', 'Please select at least one item and an action.', 'warning');
+          return;
+        }
+  
+        if (selectedAction === 'delete') {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to DELETE ${selectedIDs.length} items!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Delete!',
+            confirmButtonColor: '#d33'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'delete');
+            }
+          });
+        } else if (selectedAction === 'refund') {
+          Swal.fire('Refund', `You selected ${selectedIDs.length} items to refund.`, 'info');
+          // sendBulkRequest(selectedIDs, 'refund');
+        } else if (selectedAction === 'archive') {
+          Swal.fire('Archive', `You selected ${selectedIDs.length} items to archive.`, 'info');
+          // sendBulkRequest(selectedIDs, 'archive');
+        }
+      });
+
+
+
+
+  
+      function sendBulkRequest(ids, actionType) {
+        fetch("{{ route('category.bulkAction') }}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+          },
+          body: JSON.stringify({ ids: ids, action: actionType })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.success) {
+            Swal.fire('Done!', data.message, 'success').then(() => location.reload());
+          } else {
+            Swal.fire('Error', data.message || 'Something went wrong!', 'error');
+          }
+        });
+      }
+    });
+  </script>
+  
