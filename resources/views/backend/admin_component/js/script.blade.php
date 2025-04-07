@@ -1,6 +1,8 @@
 <!-- ===============================================-->
 <!--    JavaScripts-->
 <!-- ===============================================-->
+
+
 <script src="{{asset('contents/backend/assets')}}/vendors/popper/popper.min.js"></script>
 <script src="{{asset('contents/backend/assets')}}/vendors/bootstrap/bootstrap.min.js"></script>
 <script src="{{asset('contents/backend/assets')}}/vendors/anchorjs/anchor.min.js"></script>
@@ -170,9 +172,6 @@
           // sendBulkRequest(selectedIDs, 'archive');
         }
       });
-
-
-
 
   
       function sendBulkRequest(ids, actionType) {

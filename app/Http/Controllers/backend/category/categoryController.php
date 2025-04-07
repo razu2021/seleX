@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File; 
 use Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -19,9 +20,16 @@ class categoryController extends Controller
     **/
     public function index(Request $request){
 
-        $search = $request->search ;
+        $search = $request['search'] ?? "";
 
-        $all = Category::where('status',1)->where('category_name','LIKE',"%$search%")->get();
+        if($search !=""){
+            $all = Category::where('status',1)->where('category_name','LIKE',"%$search%")
+            ->orWhere('category_title','LIKE',"%$search%")->orWhere('category_des','LIKE',"%$search%")->get();
+        }else{
+            $all = Category::where('status',1)->get();
+        }
+
+
         return view('backend.categorys.category.index',compact('all'));
     }
 
@@ -482,8 +490,21 @@ class categoryController extends Controller
 
 
 
+/**
+ * ---------  export pdf functionality ------
+ */
 
+    public function export_pdf(){
+        $categories = Category::get();
+        
+       // return view('backend.categorys.category.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('backend.categorys.category.export_pdf', compact('categories'));
+     
+        $filename = 'categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
 
+        return $pdf->download($filename);
+   
+    }
 
 
 

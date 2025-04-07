@@ -9,6 +9,7 @@
         });
     </script>
 @endif
+
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
       <div class="row flex-between-center">
@@ -63,7 +64,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <button class="btn btn-outline-primary" type="submit">Reset</button>
+                    <a href="{{route('category.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -169,7 +170,7 @@
       </div>
 
       <div class="card_footer mt-4 mb-1">
-        <button class="btn btn-falcon-primary me-1 mb-1" type="button">Primary</button>
+        <button class="btn btn-falcon-primary me-1 mb-1" type="button"><a href="{{route('category.export_pdf')}}">Download pdf</a></button>
         <button class="btn btn-falcon-success me-1 mb-1" type="button">Success</button>
         <button class="btn btn-falcon-info me-1 mb-1" type="button">Info</button>
         <button class="btn btn-falcon-warning me-1 mb-1" type="button">Warning</button>

@@ -91,33 +91,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
-    document.getElementById('search-input').addEventListener('input', function() {
-        let searchTerm = this.value; // ইনপুট থেকে সার্চ টার্ম নেয়া
-
-        // AJAX কল
-        fetch(`/search-categories?search=${searchTerm}`)
-            .then(response => response.json())
-            .then(data => {
-                let tableBody = document.querySelector('#category-table tbody'); // টেবিলের বডি সিলেক্ট করা
-                tableBody.innerHTML = '';  // পুরনো রো গুলো পরিষ্কার করা
-
-                // সার্ভার থেকে পাওয়া ডেটা রেন্ডার করা
-                data.categories.forEach(category => {
-                    let row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${category.id}</td>
-                        <td>${category.name}</td>
-                        <td>${category.description}</td>
-                    `;
-                    tableBody.appendChild(row); // নতুন রো অ্যাড করা
-                });
-            });
-    });
-
-
-
-
-
 
 
 

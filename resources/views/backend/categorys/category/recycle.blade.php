@@ -4,37 +4,50 @@
 <div>
     <div class="card">
         <div class="card-body">
-            <select name="bulk-action" id="bulk-action-select" class="form-control">
-                <option value="" disabled>select</option>
-                <option value="delete">Delete</option>
-                <option value="archive">Archive </option>
-                <option value="active">Active</option>
-            </select>
-            <button class="btn btn-success mt-4" id="bulk-apply-button">Apply Action</button>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" id="select-all"></th>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($all as $data)
-                    <tr>
-                        <td> <input type="checkbox" value="{{$data->id}}" data-bulk-select-row>  </td>
-                        <td scope="row">{{$data->id}}</td>
-                        <td>{{$data->category_name}}</td>
-                        <td>{{$data->category_title}}</td>
-                        <td>{{$data->category_des}}</td>
-                    </tr>
-                    @endforeach
-                 
-                 
-                </tbody>
-              </table>
+        
+            <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Category PDF</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 6px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>Category List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($categories as $category)
+            <tr>
+                <td>{{ $category->id }}</td>
+                <td>{{ $category->name }}</td>
+                <td>{{ $category->created_at->format('d M, Y') }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</body>
+</html>
 
         </div>
     </div>
@@ -42,10 +55,6 @@
 
 
 
-<script>
-    const bulkActionUrl = "{{ route('category.bulkAction') }}";
-    const csrfToken = "{{ csrf_token() }}";
-</script>
 
 
 

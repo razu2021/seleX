@@ -46,6 +46,10 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
 
     Route::get('public/{id}/{slug}','public_status')->name('public');
     Route::get('private/{id}/{slug}','private_status')->name('private'); 
+
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+
    
 
 });
