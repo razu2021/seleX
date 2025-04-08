@@ -147,6 +147,7 @@
                     @else 
                      <a class="dropdown-item text-warning" href="{{route('category.private',[$data->id, $data->slug])}}">Private</a>
                     @endif 
+                    <a class="dropdown-item" href="{{route('category.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
                   </div>
                 </div>
               </td>
@@ -171,7 +172,9 @@
 
       <div class="card_footer mt-4 mb-1">
         <button class="btn btn-falcon-primary me-1 mb-1" type="button"><a href="{{route('category.export_pdf')}}">Download pdf</a></button>
-        <button class="btn btn-falcon-success me-1 mb-1" type="button">Success</button>
+        <button class="btn btn-falcon-success me-1 mb-1" type="button"><a href="{{route('category.export_excel')}}">Download Excel</a></button>
+        <button class="btn btn-falcon-success me-1 mb-1" type="button"><a href="{{route('category.export_csv')}}">Download csv</a></button>
+        <button class="btn btn-falcon-success me-1 mb-1" type="button"><a href="{{route('category.export_zip')}}">Download zip</a></button>
         <button class="btn btn-falcon-info me-1 mb-1" type="button">Info</button>
         <button class="btn btn-falcon-warning me-1 mb-1" type="button">Warning</button>
         <button class="btn btn-falcon-danger me-1 mb-1" type="button">Danger</button>

@@ -5,13 +5,22 @@ namespace App\Http\Controllers\backend\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\Storage;
 use Str;
+
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportData\CategoryExport;
+use ZipArchive;
+use Illuminate\Support\Facades\Response;
+
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Seo;
 use App\Models\Seo_image;
+
 
 class categoryController extends Controller
 {
@@ -490,9 +499,9 @@ class categoryController extends Controller
 
 
 
-/**
- * ---------  export pdf functionality ------
- */
+    /**
+     * ---------  export pdf functionality ------
+     */
 
     public function export_pdf(){
         $categories = Category::get();
@@ -504,6 +513,75 @@ class categoryController extends Controller
 
         return $pdf->download($filename);
    
+    }
+
+
+    /**
+     * ---------  export single pdf functionality ------
+     */
+    public function export_single_pdf($id,$slug){
+        $data = Category::where('id',$id)->where('slug',$slug)->firstOrFail();
+       // return view('backend.categorys.category.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('backend.categorys.category.export_single_pdf', compact('data'));
+        $filename = 'categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
+        return $pdf->download($filename);
+   
+    }
+    /**
+     * ---------  export single pdf functionality ------
+     */
+    public function export_excel(){
+       
+        return Excel::download(new CategoryExport, 'Category.xlsx');
+   
+    }
+
+    /**
+     * ---------  export single pdf functionality ------
+     */
+    public function export_csv(){
+       
+        return Excel::download(new CategoryExport, 'Category.csv');
+   
+    }
+
+    public function export_zip()
+    {
+        // File paths for CSV, XLSX, and PDF
+        $csvFilePath = storage_path('app/public/categories.csv');
+        $xlsxFilePath = storage_path('app/public/categories.xlsx');
+        $pdfFilePath = storage_path('app/public/categories.pdf');
+
+        // Export CSV file
+        Excel::store(new CategoryExport, 'categories.csv', 'public');
+        
+        // Export XLSX file
+        Excel::store(new CategoryExport, 'categories.xlsx', 'public');
+        
+        // Export PDF file
+        $pdf = Pdf::loadView('backend.categorys.category.export_pdf', ['categories' => Category::all()]);
+        $pdf->save($pdfFilePath);
+
+        // Create a zip file
+        $zip = new ZipArchive;
+        $zipFilePath = storage_path('app/public/categories.zip');
+        
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+            $zip->addFile($csvFilePath, 'categories.csv');
+            $zip->addFile($xlsxFilePath, 'categories.xlsx');
+            $zip->addFile($pdfFilePath, 'categories.pdf');
+            $zip->close();
+        }
+
+        // Return the zip file for download
+       $response = Response::download($zipFilePath)->deleteFileAfterSend(true);
+
+            // Manually delete the CSV, XLSX, and PDF files after the zip file is downloaded
+            unlink($csvFilePath);
+            unlink($xlsxFilePath);
+            unlink($pdfFilePath);
+
+            return $response;
     }
 
 

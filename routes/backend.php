@@ -49,6 +49,10 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
 
     // export route 
     Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
 
    
 
