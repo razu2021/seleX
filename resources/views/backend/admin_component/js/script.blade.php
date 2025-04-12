@@ -51,6 +51,32 @@
     });
 </script>
 
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.restore-button').forEach(function(button) {
+          button.addEventListener('click', function () {
+              const id = this.getAttribute('data-id');
+
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "Do you want to restore this record?",
+                  icon: 'question',
+                  showCancelButton: true,
+                  confirmButtonColor: '#28a745',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, Restore it!'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      document.getElementById('restoreForm' + id).submit();
+                  }
+              });
+          });
+      });
+  });
+</script>
+
+
 {{-- <script>
     document.querySelectorAll('.deleteButton').forEach(button => {
     button.addEventListener('click', function() {
@@ -83,51 +109,40 @@
 
 {{--   image preview and deleter or remove item --}}
 <script>
-    const imageInput = document.getElementById('imageInput');
-    const previewContainer = document.getElementById('previewContainer');
+  document.addEventListener('DOMContentLoaded', function () {
+  const imageInput = document.getElementById('imageInput');
+  const previewContainer = document.getElementById('previewContainer');
 
-    imageInput.addEventListener('change', function () {
-        previewContainer.innerHTML = ''; // পুরাতন preview clear
+  // যদি imageInput না থাকে, তাহলে কোনো event listener দেবো না
+  if (!imageInput || !previewContainer) return;
 
-        Array.from(this.files).forEach((file, index) => {
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
+  imageInput.addEventListener('change', function () {
+      previewContainer.innerHTML = '';
 
-                reader.onload = function (e) {
-                    const col = document.createElement('div');
-                    col.classList.add('col-md-3', 'position-relative', 'mb-3');
+      Array.from(this.files).forEach((file, index) => {
+          if (file.type.startsWith('image/')) {
+              const reader = new FileReader();
 
-                    col.innerHTML = `
-                        <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px;with:auto; object-fit: cover;">
-                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-index="${index}">X</button>
-                    `;
+              reader.onload = function (e) {
+                  const col = document.createElement('div');
+                  col.classList.add('col-md-3', 'position-relative', 'mb-3');
 
-                    previewContainer.appendChild(col);
-                };
+                  col.innerHTML = `
+                      <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px; width:auto; object-fit: cover;">
+                      <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-index="${index}">X</button>
+                  `;
 
-                reader.readAsDataURL(file);
-            }
-        });
-    });
+                  previewContainer.appendChild(col);
+              };
 
-    // Remove Preview Item (UI only)
-    previewContainer.addEventListener('click', function (e) {
-        if (e.target.classList.contains('remove-btn')) {
-            const index = e.target.getAttribute('data-index');
-            const dt = new DataTransfer();
+              reader.readAsDataURL(file);
+          }
+      });
+  });
+});
 
-            const files = imageInput.files;
-            Array.from(files).forEach((file, i) => {
-                if (i != index) {
-                    dt.items.add(file); // যেটা remove হয়নি সেটা রাখো
-                }
-            });
-
-            imageInput.files = dt.files;
-            e.target.parentElement.remove(); // UI থেকে remove
-        }
-    });
 </script>
+
 
 
 
@@ -164,13 +179,63 @@
               sendBulkRequest(selectedIDs, 'delete');
             }
           });
-        } else if (selectedAction === 'refund') {
-          Swal.fire('Refund', `You selected ${selectedIDs.length} items to refund.`, 'info');
-          // sendBulkRequest(selectedIDs, 'refund');
-        } else if (selectedAction === 'archive') {
-          Swal.fire('Archive', `You selected ${selectedIDs.length} items to archive.`, 'info');
-          // sendBulkRequest(selectedIDs, 'archive');
+
+
+        } else if (selectedAction === 'active') {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to Active ${selectedIDs.length} items!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Active!',
+            confirmButtonColor: '#41AB6D'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'active');
+            }
+          });
+          
+        } else if (selectedAction === 'deactive') {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to Deactive ${selectedIDs.length} items!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Active!',
+            confirmButtonColor: '#d33'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'deactive');
+            }
+          });
+        }else if(selectedAction === 'restore'){
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to Restore ${selectedIDs.length} items!`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Restore!',
+            confirmButtonColor: '#151FE6'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'restore');
+            }
+          });
+        }else if(selectedAction === 'heard_delete'){
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to DELETE ${selectedIDs.length} items!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Delete!',
+            confirmButtonColor: '#d33'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'heard_delete');
+            }
+          });
         }
+
       });
 
   

@@ -12,6 +12,27 @@
 
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
+      <div class="text-center pt-2 pb-2 ">
+        <h4 class="fs-6">Database Records Management  </h4>  
+      </div>
+        {{-- search option  --}}
+        <div class="searchess mb-4 ">
+          <div class="row">
+            <div class="col-md-12 ">
+                <form action="" method="get">
+                  <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <a href="{{route('category.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                  </div>
+                </form>
+            </div>
+            {{-- col end --}}
+          </div>
+          <!-- ক্যাটেগরি ডেটা টেবিল -->
+        </div>
+        {{-- search end  --}}
+
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
           <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Categorie Infomations </h5>
@@ -21,16 +42,17 @@
             <div class="d-flex">
               <select class="form-select form-select-sm" id="bulk-action-select">
                 <option selected disabled>Bulk actions</option>
-                <option value="refund">Refund</option>
+                <option value="active">Active</option>
+                <option value="deactive">Deactive</option>
                 <option value="delete">Delete</option>
-                <option value="archive">Archive</option>
+                
               </select>
               <button class="btn btn-falcon-default btn-sm ms-2" id="bulk-apply-btn" type="button">Apply</button>
             </div>
           </div>
           
 
-          <div id="table-purchases-replace-element">
+          <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
             <a href="{{route('category.add')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
@@ -48,32 +70,25 @@
             </a>
 
               <!-- Export Button -->
-            <a href="{{route('category.add')}}">
-              <button class="btn btn-falcon-default btn-sm" type="button">
-                <i class="fas fa-external-link-alt"></i>
-                <span class="d-none d-sm-inline-block ms-1">Export</span>
-              </button>
-            </a>
+           
+              <div class="dropdown">
+                <button class="btn btn-falcon-default btn-sm dropdown-toggle d-flex align-items-center" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span class="d-none d-sm-inline-block ms-1">Export</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                  <li><a class="dropdown-item" href="{{route('category.export_pdf')}}">Export as PDF</a></li>
+                  <li><a class="dropdown-item" href="{{route('category.export_excel')}}">Export as Excel</a></li>
+                  <li><a class="dropdown-item" href="{{route('category.export_csv')}}">Export as CSV</a></li>
+                  <li><a class="dropdown-item" href="{{route('category.export_zip')}}">Export as Zip</a></li>
+                </ul>
+              </div>
+              
+           
+              
           </div>
         </div>
-        {{-- search option  --}}
-        <div class="searchess mt-4 ">
-          <div class="row ">
-            <div class="col-md-6">
-                <form action="" method="get">
-                  <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('category.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
-                  </div>
-                </form>
-            </div>
-            {{-- col end --}}
-          </div>
-          <!-- ক্যাটেগরি ডেটা টেবিল -->
 
-        </div>
-        {{-- search end  --}}
       </div>
     </div>
 
@@ -107,7 +122,7 @@
               </td>
               <td class="align-middle white-space-nowrap email">{{$data->category_name}}</td>
               <td class="align-middle white-space-nowrap product">{{$data->category_title}}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->category_des}}</td>
+              <td class="align-middle white-space-nowrap product">{{Str::words($data->category_des,10)}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle white-space-nowrap product">razu</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
@@ -121,13 +136,7 @@
               <td class="align-middle white-space-nowrap text-end">
                 <div class="dropstart font-sans-serif position-static d-inline-block">
                   <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal float-end"
-                          type="button"
-                          id="dropdown-recent-purchase-table-0"
-                          data-bs-toggle="dropdown"
-                          data-boundary="window"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          data-bs-reference="parent">
+                          type="button" id="dropdown-recent-purchase-table-0"data-bs-toggle="dropdown"data-boundary="window"aria-haspopup="true"aria-expanded="false"data-bs-reference="parent">
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
@@ -158,29 +167,21 @@
 
         </tbody>
         </table>
-
       </div>
     </div>
     <div class="card-footer">
       <div class="row align-items-center">
-        <div class="pagination d-none"><li class="active"><button class="page" type="button" data-i="1" data-page="8">1</button></li><li><button class="page" type="button" data-i="2" data-page="8">2</button></li></div>
+        <div class="pagination d-none"><li class="active">
+          <button class="page" type="button" data-i="1" data-page="8">1</button></li><li><button class="page" type="button" data-i="2" data-page="8">2</button></li></div>
         <div class="col">
-          <p class="mb-0 fs-10"><span class="d-none d-sm-inline-block me-2" data-list-info="data-list-info">1 to 8 of 14</span><span class="d-none d-sm-inline-block me-2">—</span><a class="fw-semi-bold" href="#!" data-list-view="*">View all<svg class="svg-inline--fa fa-angle-right fa-w-8 ms-1" data-fa-transform="down-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg="" style="transform-origin: 0.25em 0.5625em;"><g transform="translate(128 256)"><g transform="translate(0, 32)  scale(1, 1)  rotate(0 0 0)"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z" transform="translate(-128 -256)"></path></g></g></svg><!-- <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span> Font Awesome fontawesome.com --></a><a class="fw-semi-bold d-none" href="#!" data-list-view="less">View less<svg class="svg-inline--fa fa-angle-right fa-w-8 ms-1" data-fa-transform="down-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg="" style="transform-origin: 0.25em 0.5625em;"><g transform="translate(128 256)"><g transform="translate(0, 32)  scale(1, 1)  rotate(0 0 0)"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z" transform="translate(-128 -256)"></path></g></g></svg><!-- <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span> Font Awesome fontawesome.com --></a></p>
+          <p class="mb-0 fs-10">
+            <span class="d-none d-sm-inline-block me-2" data-list-info="data-list-info">1 to 8 of 14</span>
+            <span class="d-none d-sm-inline-block me-2">—</span>
+            <a class="fw-semi-bold" href="#!" data-list-view="*">View all
+           <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a></p>
         </div>
         <div class="col-auto d-flex"><button class="btn btn-sm btn-primary disabled" type="button" data-list-pagination="prev" disabled=""><span>Previous</span></button><button class="btn btn-sm btn-primary px-4 ms-2" type="button" data-list-pagination="next"><span>Next</span></button></div>
       </div>
-
-      <div class="card_footer mt-4 mb-1">
-        <button class="btn btn-falcon-primary me-1 mb-1" type="button"><a href="{{route('category.export_pdf')}}">Download pdf</a></button>
-        <button class="btn btn-falcon-success me-1 mb-1" type="button"><a href="{{route('category.export_excel')}}">Download Excel</a></button>
-        <button class="btn btn-falcon-success me-1 mb-1" type="button"><a href="{{route('category.export_csv')}}">Download csv</a></button>
-        <button class="btn btn-falcon-success me-1 mb-1" type="button"><a href="{{route('category.export_zip')}}">Download zip</a></button>
-        <button class="btn btn-falcon-info me-1 mb-1" type="button">Info</button>
-        <button class="btn btn-falcon-warning me-1 mb-1" type="button">Warning</button>
-        <button class="btn btn-falcon-danger me-1 mb-1" type="button">Danger</button>
-        <button class="btn btn-falcon-default me-1 mb-1" type="button">Default</button>
-      </div>
-
     </div>
   </div>
 @endsection

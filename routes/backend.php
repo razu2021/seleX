@@ -38,7 +38,7 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
     Route::post('submit','insert')->name('submit');
     Route::post('update','update')->name('update');
     Route::delete('softdelete/{id}','softdelete')->name('softdelete');
-    Route::get('restore','restore')->name('restore');
+    Route::post('restore/{id}','restore')->name('restore');
     Route::delete('delete/{id}','delete')->name('delete');
     Route::post('bulk-action','bulkAction')->name('bulkAction');
     Route::get('recycle','recycle')->name('recycle');

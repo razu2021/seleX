@@ -5,7 +5,6 @@ namespace App\Http\Controllers\backend\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File; 
-use Illuminate\Support\Facades\Storage;
 use Str;
 
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -372,8 +371,19 @@ class categoryController extends Controller
    /**
     * ---------  restore  page functionality --------
     **/
-    public function restore(){
-       
+    public function restore($id){
+        $data = Category::withTrashed()->where('id', $id)->first();
+    
+       $data->restore();
+
+        // Delete Successfully 
+        if($data){
+            flash()->success('Information Restore Successfuly');
+        }else{
+            flash()->error('Informatin Restore Faild !');
+        }
+        return redirect()->back();
+        
     }
 
 
@@ -383,7 +393,7 @@ class categoryController extends Controller
     * ---------  restore  page functionality --------
     **/
     public function delete($id){
-        $data = Category::where('id', $id)->first();
+        $data = Category::onlyTrashed()->where('id', $id)->first();
     
         if($data) {
             // Delete all associated seo_image records first
@@ -461,7 +471,7 @@ class categoryController extends Controller
     * ---------  restore  page functionality --------
     **/
     public function recycle(){
-        $all = Category::all();
+        $all = Category::onlyTrashed()->get();
         return view('backend.categorys.category.recycle',compact('all'));
     }
 
@@ -483,13 +493,76 @@ class categoryController extends Controller
             return response()->json(['success' => true, 'message' => 'Selected categories deleted.']);
         }
     
-        if ($action === 'archive') {
-            Category::whereIn('id', $ids)->update(['is_archived' => true]);
+        if ($action === 'heard_delete') {
+            $categories = Category::onlyTrashed()->whereIn('id', $ids)->get();
+        
+            foreach ($categories as $category) {
+                // 1. Related SEO খোঁজো
+                $seo = Seo::where('unique_id', $category->id)->first();
+        
+                if ($seo) {
+                    // 2. Related SEO Images খোঁজো
+                    $seoImages = Seo_image::where('seo_id', $seo->id)->get();
+        
+                    foreach ($seoImages as $image) {
+                        $file_path = public_path('storage/uploads/seo/' . $image->image_name);
+                        if (file_exists($file_path)) {
+                            File::delete($file_path);
+                        }
+                        $image->delete(); // DB থেকে image রেকর্ড ডিলিট
+                    }
+        
+                    // 3. SEO রেকর্ড ডিলিট করো
+                    $seo->delete();
+                }
+        
+                // 4. Category force delete
+                $category->forceDelete();
+            }
+        
+            return response()->json(['success' => true, 'message' => 'Selected categories permanently deleted with SEO and images.']);
+        }
+        
+    
+
+        if ($action === 'restore') {
+            $categories = Category::onlyTrashed()->whereIn('id', $ids)->get();
+            if($categories){
+                foreach($categories as $data){
+                    $data->restore();
+                }
+
+            }
             return response()->json(['success' => true, 'message' => 'Selected categories archived.']);
         }
     
-        if ($action === 'refund') {
-            // Refund logic (just for demo)
+
+
+        if ($action === 'active') {
+            $categories = Category::whereIn('id', $ids)->get();
+
+            if($categories){
+                foreach($categories as $data){
+
+                    Category::whereIn('id',$ids)->where('public_status',0)->update([
+                        'public_status'=>1,
+                    ]);
+                }
+            }
+            return response()->json(['success' => true, 'message' => 'Refund process started.']);
+        }
+
+
+        if ($action === 'deactive') {
+            $categories = Category::whereIn('id', $ids)->get();
+
+            if($categories){
+                foreach($categories as $data){
+                    Category::whereIn('id',$ids)->where('public_status',1)->update([
+                        'public_status'=>0,
+                    ]);
+                }
+            }
             return response()->json(['success' => true, 'message' => 'Refund process started.']);
         }
     
