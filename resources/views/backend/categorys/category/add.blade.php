@@ -78,153 +78,6 @@
                           </div>
                       </div>
                       {{-- card end --}}
-                    <div class="card mt-4">
-                        <div class="card-body">
-                          <h5>SEO for Google </h5>
-                          <div class="col-12">
-                            <label class="form-label" for="meta_title">Meta Title:</label>
-                            <input class="form-control" name="meta_title" id="meta_title" type="text" value="{{old('meta_title')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="meta_description">Meta Descriptions:</label>
-                            <input class="form-control" name="meta_description" id="meta_description" type="text" value="{{old('meta_description')}}">
-                            
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="meta_keywords">Meta Keywords:</label>
-                            <input class="form-control" name="meta_keywords" id="meta_keywords" type="text" value="{{old('meta_keywords')}}">
-                            
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="meta_robots">Meta Robots:</label>
-                            <input class="form-control" name="meta_robots" id="meta_robots" type="text" value="{{old('meta_robots')}}">
-                           
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="canonical_url">Canonical Url:</label>
-                            <input class="form-control" name="canonical_url" id="canonical_url" type="text" value="{{old('canonical_url')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="hreflang_tags"> Url for Language :</label>
-                            <input class="form-control" name="hreflang_tags" id="hreflang_tags" type="text" value="{{old('hreflang_tags')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="structured_data">structured Data / schema:</label>
-                            <input class="form-control" name="structured_data" id="structured_data" type="text" value="{{old('structured_data')}}">
-                          </div>
-                          {{-- end  --}}
-                        </div>
-                    </div>
-                    {{-- card end  --}}
-                    <div class="card mt-4">
-                        <div class="card-body">
-                          <h5>SEO for Facebook & Linkedin </h5>
-                          <div class="col-12">
-                            <label class="form-label" for="og_title">Og Title:</label>
-                            <input class="form-control" name="og_title" id="og_title" type="text" value="{{old('og_title')}}">
-                           
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="og_description-">Og Descriptions:</label>
-                            <input class="form-control" name="og_description" id="og_description" type="text" value="{{old('og_description')}}">
-                           
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="og_url">Og Url:</label>
-                            <input class="form-control" name="og_url" id="og_url" type="text" value="{{old('og_url')}}">
-                            
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="og_type">Og Type:</label>
-                            <input class="form-control" name="og_type" id="og_type" type="text" value="{{old('og_type')}}">
-                            
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="og_locale">Og Local Language :</label>
-                            <input class="form-control" name="og_locale" id="og_locale" type="text" value="{{old('og_locale')}}">
-                          </div>
-                          {{-- end  --}}
-                        </div>
-                    </div>
-                    {{-- card end  --}}
-                      <div class="card mt-4">
-                        <div class="card-body">
-                          <h5>SEO for Twitter Meta Feilds </h5>
-                          <div class="col-12">
-                            <label class="form-label" for="twitter_card">Twitter Card:</label>
-                            <input class="form-control" name="twitter_card" id="twitter_card" type="text" value="{{old('twitter_card')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="twitter_title">Twitter Title:</label>
-                            <input class="form-control" name="twitter_title" id="twitter_title" type="text" value="{{old('twitter_title')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="twitter_description">twitter_description :</label>
-                            <input class="form-control" name="twitter_description" id="twitter_description-" type="text" value="{{old('twitter_description')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="manufacturar-name">twitter site:</label>
-                            <input class="form-control" name="twitter_site" id="twitter_site" type="text" value="{{old('twitter_site')}}">
-                          </div>
-                          {{-- end  --}}
-                        </div>
-                    </div>
-                    {{-- card end  --}}
-                    <div class="card mt-4">
-                        <div class="card-body">
-                          <h5>SEO for WhatsApp & Messenger Meta Fields </h5>
-                          <div class="col-12">
-                            <label class="form-label" for="whatsapp_title">WhatsApp Title:</label>
-                            <input class="form-control" name="whatsapp_title" id="whatsapp_title" type="text" value="{{old('whatsapp_title')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="whatsapp_description">WhatsApp Descriptions :</label>
-                            <input class="form-control" name="whatsapp_description" id="whatsapp_description" type="text" value="{{old('whatsapp_description')}}"> 
-                          </div>
-                          {{-- end  --}}
-                        </div>
-                    </div>
-                    {{-- card end  --}}
-                    <div class="card mt-4">
-                        <div class="card-body">
-                          <h5>SEO for Pinterest Meta Fields </h5>
-                          <div class="col-12">
-                            <label class="form-label" for="pinterest_description">pinterest description :</label>
-                            <input class="form-control" name="pinterest_description" id="pinterest_description" type="text" value="{{old('pinterest_description')}}">
-                          </div>
-                          {{-- end  --}}
-                          <div class="col-12">
-                            <label class="form-label" for="pinterest_rich_pin">Pinterest Rich pin :</label>
-                            <input class="form-control" name="pinterest_rich_pin" id="pinterest_rich_pin" type="text" value="{{old('pinterest_rich_pin')}}">
-                          </div>
-                          {{-- end --}}
-                        </div>
-                    </div>
-                    {{-- card end  --}}
-
-                    <div class="card mt-4">
-                        <div class="card-header">
-                          <h5 class="mb-0">Upload Photos</h5>
-                        </div>
-                          <div class="col-12 p-2">
-                            <input class="form-control" name="images[]" id="imageInput" type="file" multiple>
-                          </div>
-                          <div id="previewContainer" class="row mt-3 px-2"></div>
-                        </div>
                     </div>
                     {{-- card end  --}}
                   </div>
@@ -249,4 +102,53 @@
             {{-- form end --}}
         </div>
     </main>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          let keywords = [];
+  
+          const input = document.getElementById('keyword-input');
+          const container = document.getElementById('tag-container');
+          const hiddenInput = document.getElementById('meta_keywords');
+  
+          input.addEventListener('keyup', function (e) {
+              if (e.key === ' ') {
+                  const value = input.value.trim();
+                  if (value && !keywords.includes(value)) {
+                      keywords.push(value);
+                      addTag(value);
+                      updateHiddenInput();
+                  }
+                  input.value = '';
+              }
+          });
+  
+          function addTag(text) {
+              const tag = document.createElement('span');
+              tag.className = 'badge bg-primary me-1 mb-1';
+              tag.innerText = text;
+  
+              const removeBtn = document.createElement('span');
+              removeBtn.innerHTML = '&times;';
+              removeBtn.style.marginLeft = '8px';
+              removeBtn.style.cursor = 'pointer';
+  
+              removeBtn.onclick = function () {
+                  container.removeChild(tag);
+                  keywords = keywords.filter(k => k !== text);
+                  updateHiddenInput();
+              };
+  
+              tag.appendChild(removeBtn);
+              container.appendChild(tag);
+          }
+  
+          function updateHiddenInput() {
+              hiddenInput.value = keywords.join(',');
+          }
+      });
+  </script>
+  
+  
 @endsection

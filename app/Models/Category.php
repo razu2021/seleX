@@ -21,6 +21,7 @@ class Category extends Model
     }
 
 
+    // category model 
     public function metaData(){
         return $this->hasOne(Seo::class,'unique_id','id');
     }

@@ -40,13 +40,11 @@
         <div class="main_menu">
             <h5> All Category's </h5>
             <ul>
-                <li><a href="#">Electronics & Gadgets</a></li>
-                <li><a href="{{route('product_category')}}">Fashion & Clothing</a></li>
-                <li><a href="#">Beauty & Personal Care</a></li>
-                <li><a href="#">Home & Kitchen</a></li>
-                <li><a href="#">Groceries & Food</a></li>
-                <li><a href="#"> Sports & Outdoor</a></li>
-                <li><a href="#">Deals & Offers</a></li>
+                @foreach ($categories as $cate)
+                    <li><a href="{{route('product_category', ['url' =>$cate->url, 'slug' => $cate->slug])}}">{{$cate->category_name}}</a></li>
+                @endforeach
+             
+               
             </ul>
         </div>
     </div>

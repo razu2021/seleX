@@ -1,20 +1,16 @@
 <?php
-
 namespace App\Http\Controllers\backend\category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File; 
-use Str;
-
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf; //-------------Export --------
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportData\CategoryExport;
 use ZipArchive;
-use Illuminate\Support\Facades\Response;
-
-
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Response; 
+use Carbon\Carbon; //----------  defualt -------
+use Str;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Seo;
@@ -24,20 +20,18 @@ use App\Models\Seo_image;
 class categoryController extends Controller
 {
    /**
-    * ---------  index page functionality --------
-    **/
+     * =============================================================
+     * ==============================================================================================  SHOW FUNCTION START HERE ========================================================
+     * =============================================================
+     */
     public function index(Request $request){
-
         $search = $request['search'] ?? "";
-
         if($search !=""){
             $all = Category::where('status',1)->where('category_name','LIKE',"%$search%")
             ->orWhere('category_title','LIKE',"%$search%")->orWhere('category_des','LIKE',"%$search%")->get();
         }else{
             $all = Category::where('status',1)->get();
         }
-
-
         return view('backend.categorys.category.index',compact('all'));
     }
 
@@ -48,9 +42,9 @@ class categoryController extends Controller
     public function add(){
         $totalpost  = Category::get()->count();
         $latestPost = Category::latest()->first();
-  
         return view('backend.categorys.category.add',compact('totalpost','latestPost'));
     }
+
 
    /**
     * ---------  view page functionality --------
@@ -80,15 +74,16 @@ class categoryController extends Controller
         return view('backend.categorys.category.edit',compact('totalpost','latestPost','data'));
     }
 
+
    /**
-    * ---------  insert page functionality --------
-    **/
+     * =======================================================================
+     * ==============================================================================================  CREATE FUNCTION START HERE ========================================================
+     * =======================================================================
+     */
     public function insert(Request $request){
-        
         /**--- validation code -- */
         $request->validate([
                 'category_name'=> 'required',
-                
                 'category_desc'=> 'required',
             ],[
                 'category_name.required'=> 'Category Name is Required !',
@@ -97,10 +92,11 @@ class categoryController extends Controller
             ]
         );
 
+        // ------  create a slug & get creator id -------
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();;
         $creator = Auth::guard('admin')->user()->id;
 
-        // make a custom url 
+        //------- make a custom url for -------
         $categoryname = strtolower($request->category_name) ;
         $user_input_url  = strtolower($request->custom_url) ;
         if(!empty($user_input_url)){
@@ -109,6 +105,7 @@ class categoryController extends Controller
             $url = Str::slug($categoryname); // Output: "my-new-category-name"
         }
 
+        //-------  insert category record --------
         $insert = Category::create([
             'category_name'=>$request->category_name,
             'category_title'=>$request->category_title,
@@ -118,62 +115,14 @@ class categoryController extends Controller
             'creator_id' => $creator,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
-
-
-
-
-       $metadat = Seo::create([
-            // defualt
-            'unique_id'=> $insert->id,
+       
+        $mata_data= Seo::create([
+            'unique_id'=>$insert->id,
             'model_type'=>'Category',
-            // genrel feilds 
-            'meta_title'=>$request->meta_title,
-            'meta_description'=>$request->meta_description,
-            'meta_keywords'=>$request->meta_keywords,
-            'meta_robots'=>$request->meta_robots,
-            'canonical_url'=>$request->canonical_url,
-            'hreflang_tags' => json_encode($request->hreflang_tags, JSON_UNESCAPED_UNICODE),
-            'structured_data' => json_encode($request->structured_data, JSON_UNESCAPED_UNICODE),
-            // open graph 
-            'og_title'=>$request->og_title,
-            'og_description'=>$request->og_description,
-            'og_url'=>$request->og_url,
-            'og_type'=>$request->og_type,
-            'og_locale'=>$request->og_locale,
-            // twitter card
-            'twitter_card'=>$request->twitter_card,
-            'twitter_title'=>$request->twitter_title,
-            'twitter_description'=>$request->twitter_description,
-            'twitter_site'=>$request->twitter_site,
-            // whatsapp 
-            'whatsapp_title'=>$request->whatsapp_title,
-            'whatsapp_description'=>$request->whatsapp_description,
-            // pinterest
-            'pinterest_description'=>$request->pinterest_description,
-            'pinterest_rich_pin'=>$request->pinterest_rich_pin,
-            // image
-            'seo_image'=>'seo_image',
-
+            'creator_id'=>$creator,
             'slug'=>$slug,
-            'creator_id' => $creator,
-            'created_at' => Carbon::now()->toDateTimeString(),
         ]);
 
-      // uploads image for seo 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $file) {
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('uploads/seo', $fileName, 'public');
-
-                Seo_image::create([
-                    'seo_id'     => $metadat->id,
-                    'model_type' => 'Seo',
-                    'image_name' => $fileName, // ✅ এখানে ভ্যারিয়েবল ব্যবহার করা হয়েছে সঠিকভাবে
-                ]);
-            }
-        }
-
-      
 
         // insert Successfully 
         if($insert){
@@ -181,38 +130,35 @@ class categoryController extends Controller
         }else{
             flash()->error('Informatin Added Faild !');
         }
-
         return redirect()->back();
-
     }
 
 
-
-
-
    /**
-    * ---------  update page functionality --------
-    **/
+     * ===========================================================
+     * ==============================================================================================  UPDATE FUNCTION START HERE ========================================================
+     * ===========================================================
+     */
     public function update(Request $request){
-               /**--- validation code -- */
-            $request->validate([
+        /**--- validation code -- */
+        $request->validate([
             'category_name'=> 'required',
             
             'category_desc'=> 'required',
-        ],[
-            'category_name.required'=> 'Category Name is Required !',
-            
-            'category_desc.required'=> 'Category Description is Required !',
-        ]
-    );
+            ],[
+                'category_name.required'=> 'Category Name is Required !',
+                
+                'category_desc.required'=> 'Category Description is Required !',
+            ]
+        );
 
-
+    //--- get specific Credential for update record & editor id --------
     $id = $request->id;
     $slug = $request->slug;
     $editor = Auth::guard('admin')->user()->id;
 
 
-    // make a custom url 
+    // -------  update custom url --------//
     $categoryname = strtolower($request->category_name) ;
     $user_input_url  = strtolower($request->custom_url) ;
     if(!empty($user_input_url)){
@@ -221,8 +167,7 @@ class categoryController extends Controller
         $url = Str::slug($categoryname); // Output: "my-new-category-name"
     }
 
-
-    //category update 
+    //---------category update -------//
     $update = Category::where('id',$id)->where('slug',$slug)->update([
         'category_name'=>$request->category_name,
         'category_title'=>$request->category_title,
@@ -233,139 +178,36 @@ class categoryController extends Controller
         'updated_at' => Carbon::now()->toDateTimeString(),
     ]);
     
-    
-    // update metaData ------------
-    $update_metaData = Seo::where('unique_id',$id)->where('slug',$slug)->update([
-        // defualt
-        'model_type'=>'Category',
-        // genrel feilds 
-        'meta_title'=>$request->meta_title,
-        'meta_description'=>$request->meta_description,
-        'meta_keywords'=>$request->meta_keywords,
-        'meta_robots'=>$request->meta_robots,
-        'canonical_url'=>$request->canonical_url,
-        'hreflang_tags' => json_encode($request->hreflang_tags, JSON_UNESCAPED_UNICODE),
-        'structured_data' => json_encode($request->structured_data, JSON_UNESCAPED_UNICODE),
-        // open graph 
-        'og_title'=>$request->og_title,
-        'og_description'=>$request->og_description,
-        'og_url'=>$request->og_url,
-        'og_type'=>$request->og_type,
-        'og_locale'=>$request->og_locale,
-        // twitter card
-        'twitter_card'=>$request->twitter_card,
-        'twitter_title'=>$request->twitter_title,
-        'twitter_description'=>$request->twitter_description,
-        'twitter_site'=>$request->twitter_site,
-        // whatsapp 
-        'whatsapp_title'=>$request->whatsapp_title,
-        'whatsapp_description'=>$request->whatsapp_description,
-        // pinterest
-        'pinterest_description'=>$request->pinterest_description,
-        'pinterest_rich_pin'=>$request->pinterest_rich_pin,
-        // image
-        'seo_image'=>'seo_image',
 
-        'editor_id' => $editor,
-        'updated_at' => Carbon::now()->toDateTimeString(),
-    ]);
-
-
-
-
- 
-
-    // -----update seo image ------
-    $seoId = Seo::where('unique_id', $id)->where('slug', $slug)->first(); 
-    if ($seoId) {
-        $seoId = $seoId->id;  // seoId পাওয়ার পর, সেটা সেভ করবো
-    } else {
-        return back()->withErrors('No SEO data found for this ID'); // যদি SEO data না পাওয়া যায়, তাহলে ত্রুটি দেখানো হবে
-    }
-
-
-
-    if($request->hasFile('images')){
-        $images = $request->file('images');
-        foreach($images as $key => $file){
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('uploads/seo', $fileName, 'public');
-
-            // ফর্ম থেকে unique_id এবং seo_id গুলি আনার জন্য
-            $table_ids = $request->input('table_ids');  // এটা হবে table_ids এর array
-            $seo_ids = $request->input('seo_ids');  // এটা হবে seo_ids এর array
-            if($table_ids &&  $seo_ids){
-
-            // প্রতিটি ছবির জন্য seo_id এবং table_id বের করা
-            $seo_id = isset($seo_ids[$key]) ? $seo_ids[$key] : null;
-            $table_id = isset($table_ids[$key]) ? $table_ids[$key] : null;
-
-
-            /**--------- Multiple file delete when you update new file ----------- */
-            $old_files =  Seo_image::where('id',$table_id)->where('seo_id',$seo_id)->get();
-
-            foreach ($old_files as $old_file) {
-                $file_path = public_path('storage/uploads/seo/'.$old_file->image_name);
-                if (file_exists($file_path)) {
-                    File::delete($file_path);
-                }
-            }
-
-            /**---------- multiple file delete ---------- */
-
-
-              Seo_image::where('id',$table_id)->where('seo_id',$seo_id)->update([
-                'image_name' =>$fileName,
-              ]);
-
-
-            }else{
-                Seo_image::create([
-                    'seo_id'=>$seoId,
-                    'model_type'=>'Seo',
-                    'image_name' =>$fileName,
-                ]);
-            }
-
-
-
-    
-        }
-       
-  
-    }
-
-
-    // insert Successfully 
+    // ------insert Successfully--------// 
     if($update){
         flash()->success('Information Update Successfuly');
     }else{
         flash()->error('Informatin Update Faild !');
     }
-
     return redirect()->back();
 
-       
-    }
+    } // update end 
+
+
+
 
 
    /**
-    * ---------  soft Delete page functionality --------
-    **/
+     * =================================================
+     * =========================================================================== SOFT,HEARD DELETE, RESTORE ,RECYCLE,ACTIVE ,DEACTIVE FUNCTION START HERE ========================================================
+     * ================================================
+     */
     public function softdelete($id){
         $data= Category::where('id',$id)->first();
         $data->delete();
-
-
-        // Delete Successfully 
+        // ----Delete Successfully ----//
         if($data){
             flash()->success('Information Update Successfuly');
         }else{
             flash()->error('Informatin Update Faild !');
         }
-
-    return redirect()->back();
-
+        return redirect()->back();
     }
 
    /**
@@ -373,9 +215,7 @@ class categoryController extends Controller
     **/
     public function restore($id){
         $data = Category::withTrashed()->where('id', $id)->first();
-    
-       $data->restore();
-
+        $data->restore();
         // Delete Successfully 
         if($data){
             flash()->success('Information Restore Successfuly');
@@ -383,14 +223,11 @@ class categoryController extends Controller
             flash()->error('Informatin Restore Faild !');
         }
         return redirect()->back();
-        
     }
 
 
-
-
    /**
-    * ---------  restore  page functionality --------
+    * ---------  Heard Delete  functionality --------
     **/
     public function delete($id){
         $data = Category::onlyTrashed()->where('id', $id)->first();
@@ -410,7 +247,7 @@ class categoryController extends Controller
                 $images->delete(); 
             }
 
-            /**---------- multiple file delete ---------- */
+            /**---------- multiple file delete end ---------- */
          
             // Force delete the category record
             $data->forceDelete();
@@ -419,15 +256,13 @@ class categoryController extends Controller
         } else {
             flash()->error('Delete Record Failed!');
         }
-    
         return redirect()->back();
     }
     
 
 
-
    /**
-    * ---------  Published post  functionality --------
+    * ---------  Published post  functionality --------//
     **/
     public function public_status($id,$slug){
         $published = Category::where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
@@ -444,7 +279,7 @@ class categoryController extends Controller
 
 
    /**
-    * ---------  Published post  functionality --------
+    * ---------  Private post  functionality --------//
     **/
     public function private_status($id,$slug){
         $private = Category::where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
@@ -460,27 +295,27 @@ class categoryController extends Controller
     }
 
 
-
-
-
-
-
-
-
    /**
-    * ---------  restore  page functionality --------
+    * ---------  Recycle  page functionality --------//
     **/
     public function recycle(){
         $all = Category::onlyTrashed()->get();
         return view('backend.categorys.category.recycle',compact('all'));
     }
 
-    
 
 
+
+
+   /**
+     * =====================================================
+     * ==============================================================================================  BULK ACTION FUNCTION START HERE ========================================================
+     * =====================================================
+     */
 
     public function bulkAction(Request $request)
     {
+        //----- get multiple items id or bulk record -----//
         $ids = $request->input('ids', []);
         $action = $request->input('action');
     
@@ -488,11 +323,12 @@ class categoryController extends Controller
             return response()->json(['success' => false, 'message' => 'No IDs selected.']);
         }
     
+        //----- for multiple items soft delete ----//
         if ($action === 'delete') {
             Category::whereIn('id', $ids)->delete();
             return response()->json(['success' => true, 'message' => 'Selected categories deleted.']);
         }
-    
+        //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
             $categories = Category::onlyTrashed()->whereIn('id', $ids)->get();
         
@@ -524,20 +360,17 @@ class categoryController extends Controller
         }
         
     
-
+        //---- for multiple items resotre --------//
         if ($action === 'restore') {
             $categories = Category::onlyTrashed()->whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
                 }
-
             }
             return response()->json(['success' => true, 'message' => 'Selected categories archived.']);
         }
-    
-
-
+        //----- for multiple items active ----//
         if ($action === 'active') {
             $categories = Category::whereIn('id', $ids)->get();
 
@@ -552,10 +385,9 @@ class categoryController extends Controller
             return response()->json(['success' => true, 'message' => 'Refund process started.']);
         }
 
-
+        //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
             $categories = Category::whereIn('id', $ids)->get();
-
             if($categories){
                 foreach($categories as $data){
                     Category::whereIn('id',$ids)->where('public_status',1)->update([
@@ -565,29 +397,29 @@ class categoryController extends Controller
             }
             return response()->json(['success' => true, 'message' => 'Refund process started.']);
         }
-    
-        return response()->json(['success' => false, 'message' => 'Invalid action.']);
-    }
-    
 
+      
+
+
+
+        return response()->json(['success' => false, 'message' => 'Invalid action.']);
+    } // bulk action end here 
+    
 
 
     /**
-     * ---------  export pdf functionality ------
+     * ==========================================================
+     * ==============================================================================================  EXPORT FUNCTION START HERE ========================================================
+     * ===========================================================
      */
 
     public function export_pdf(){
         $categories = Category::get();
-        
        // return view('backend.categorys.category.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('backend.categorys.category.export_pdf', compact('categories'));
-     
-        $filename = 'categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
-
-        return $pdf->download($filename);
-   
+        $pdf = Pdf::loadView('backend.categorys.category.export_pdf', compact('categories')); // get database record 
+        $filename = 'categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf'; // make pdf file name 
+        return $pdf->download($filename); // download file 
     }
-
 
     /**
      * ---------  export single pdf functionality ------
@@ -598,24 +430,21 @@ class categoryController extends Controller
         $pdf = Pdf::loadView('backend.categorys.category.export_single_pdf', compact('data'));
         $filename = 'categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
         return $pdf->download($filename);
-   
     }
+
+
     /**
-     * ---------  export single pdf functionality ------
+     * ---------  export Excel or xlsx file functionality ------
      */
     public function export_excel(){
-       
         return Excel::download(new CategoryExport, 'Category.xlsx');
-   
     }
 
     /**
-     * ---------  export single pdf functionality ------
+     * ---------  export csv file functionality ------
      */
     public function export_csv(){
-       
         return Excel::download(new CategoryExport, 'Category.csv');
-   
     }
 
     public function export_zip()
@@ -653,16 +482,16 @@ class categoryController extends Controller
             unlink($csvFilePath);
             unlink($xlsxFilePath);
             unlink($pdfFilePath);
-
             return $response;
-    }
+    } // export zip end here 
+
+  
 
 
 
 
 
 
-
-
-
+//-----------  controller end here ------------- //
 }
+//--------  controller end here ------------- //

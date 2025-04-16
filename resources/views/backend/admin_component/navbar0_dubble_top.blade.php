@@ -263,7 +263,7 @@
                                                             <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="{{asset('contents/backend/assets')}}/assets/img/nav-icons/xbox.png" alt="" width="40" height="40" />
                                         <p class="mb-0 fw-medium text-800 text-truncate fs-11 pt-1">xbox</p>
                                     </a></div>
-                                                            <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="{{asset('contents/backend/assets')}}/assets/img/nav-icons/trello.png" alt="" width="40" height="40" />
+                                        <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="{{asset('contents/backend/assets')}}/assets/img/nav-icons/trello.png" alt="" width="40" height="40" />
                                         <p class="mb-0 fw-medium text-800 text-truncate fs-11 pt-1">Kanban</p>
                                     </a></div>
                                                             <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="{{asset('contents/backend/assets')}}/assets/img/nav-icons/hp.png" alt="" width="40" height="40" />
@@ -355,7 +355,7 @@
                                     <div class="col-6 col-md-4">
                                         <div class="nav flex-column"><a class="nav-link py-1 link-600 fw-medium" href="calendar.html">Calendar</a>
                                             <a class="nav-link py-1 link-600 fw-medium" href="chat.html">Chat</a>
-                                            <a class="nav-link py-1 link-600 fw-medium" href="kanban.html">Kanbandfdf</a>
+                                            <a class="nav-link py-1 link-600 fw-medium" href="{{route('metatag.all')}}">Seo Data</a>
                                             <p class="nav-link text-700 mb-0 fw-bold">Social</p>
                                             <a class="nav-link py-1 link-600 fw-medium" href="feed.html">Feed</a>
                                             <a class="nav-link py-1 link-600 fw-medium" href="activity-log.html">Activity log</a>

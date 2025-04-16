@@ -9,6 +9,12 @@
         });
     </script>
 @endif
+@push('scripts')
+<script>
+  const bulkActionUrl = "{{ route('category.bulkAction') }}";
+  const csrfToken = "{{ csrf_token() }}";
+</script>
+@endpush
 
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">

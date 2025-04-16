@@ -1,5 +1,11 @@
 @extends('layouts.adminmaster')
 @section('admin_contents')
+@push('scripts')
+<script>
+  const bulkActionUrl = "{{ route('metatag.bulkAction') }}";
+  const csrfToken = "{{ csrf_token() }}";
+</script>
+@endpush
     <main>
         <div class="container">
             <div class="card mb-3">
@@ -27,30 +33,14 @@
                                 
                                 <tbody>
                                   <tr>
-                                    <td>Name</td>
+                                    <td>Model Type</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->category_name}}</td>
+                                    <td>{{$data->model_type}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Title</td>
+                                    <td>Model ID</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->category_title}}</td>
-                                  </tr>
-                                 
-                                  <tr>
-                                    <td>Description</td>
-                                    <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->category_des}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Slug </td>
-                                    <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->slug}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Unique URL</td>
-                                    <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->url}}</td>
+                                    <td>{{$data->unique_id}}</td>
                                   </tr>
                                  
                                 </tbody>
@@ -59,8 +49,29 @@
                       </div>
                       {{-- card end  --}}
                     <div class="card mb-3">
-                        <div class="card-header bg-body-tertiary">
-                          <h5 class="mb-0">Meta information</h5>
+                        <div class="card-header bg-body-tertiary d-flex justify-content-between">
+                          <div>
+                            <h5 class="mb-0">Meta information</h5>
+                          </div>
+                          <div>
+                            <div class="dropdown font-sans-serif d-inline-block mb-2">
+                              <button class="btn btn-falcon-success dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</button>
+                              <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="dropdownMenuButton">
+                               
+                                <a class="dropdown-item" href="{{route('metatag.edit',[$data->id,$data->model_type, $data->slug])}}">Update Information</a>
+                                <div class="dropdown-divider"></div>
+                                @if ($data->public_status === 0)
+                                <a class="dropdown-item" href="{{route('metatag.public',[$data->id, $data->slug])}}">Published</a>
+                                @else
+                                <a class="dropdown-item" href="{{route('metatag.private',[$data->id, $data->slug])}}">Unpublished</a>
+                                @endif
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#"> </a>
+                              </div>
+                            </div>
+
+                          
+                          </div>
                         </div>
                         <div class="card-header bg-body-tertiary">
                             <ul class="nav nav-pills" id="pill-myTab" role="tablist">
@@ -80,19 +91,19 @@
                                           <tr>
                                             <td>Meta Title </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->meta_title ?? 'No Data Available !'}}</td>
+                                            <td>{{$data->meta_title ?? 'No Data Available !'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Meta Description </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->meta_description ?? 'No Data Available !'}}</td>
+                                            <td>{{$data->meta_description ?? 'No Data Available !'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Meta Keywords </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
                                             <td>
                                               @php
-                                                  $keywords = explode(',', $data->metaData?->meta_keywords ?? '');
+                                                  $keywords = explode(',', $data->meta_keywords ?? '');
                                               @endphp
                                           
                                               @forelse($keywords as $keyword)
@@ -105,22 +116,22 @@
                                           <tr>
                                             <td>Meta Robots </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->meta_robots ?? 'No Data Available !'}}</td>
+                                            <td>{{$data->meta_robots ?? 'No Data Available !'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Canonicale Url  </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->canonical_url ?? 'No Data Available !'}}</td>
+                                            <td>{{$data->canonical_url ?? 'No Data Available !'}}</td>
                                           </tr>
                                           <tr>
                                             <td>hreflang tags  </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->hreflang_tags ?? 'No Data Available !'}}</td>
+                                            <td>{{$data->hreflang_tags ?? 'No Data Available !'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Structured Data  </td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->structured_data ?? 'No Data Available !'}}</td>
+                                            <td>{{$data->structured_data ?? 'No Data Available !'}}</td>
                                           </tr>
                                         </tbody>
                                     </table>
@@ -132,27 +143,27 @@
                                           <tr>
                                             <td>Og Title</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->og_title ?? 'No Data Available'}}</td>
+                                            <td>{{$data->og_title ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Og Description</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->og_description ?? 'No Data Available'}}</td>
+                                            <td>{{$data->og_description ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Og url</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->og_url ?? 'No Data Available'}}</td>
+                                            <td>{{$data->og_url ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Og Type</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->og_type ?? 'No Data Available'}}</td>
+                                            <td>{{$data->og_type ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Og Locale</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->og_locale ?? 'No Data Available'}}</td>
+                                            <td>{{$data->og_locale ?? 'No Data Available'}}</td>
                                           </tr>
                                         </tbody>
                                     </table>
@@ -164,22 +175,22 @@
                                           <tr>
                                             <td>Twitter Card</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->twitter_card ?? 'No Data Available'}}</td>
+                                            <td>{{$data->twitter_card ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Twitter Card</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->twitter_title ?? 'No Data Available'}}</td>
+                                            <td>{{$data->twitter_title ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Twitter Description</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->twitter_description ?? 'No Data Available'}}</td>
+                                            <td>{{$data->twitter_description ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Twitter Description</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->twitter_site ?? 'No Data Available'}}</td>
+                                            <td>{{$data->twitter_site ?? 'No Data Available'}}</td>
                                           </tr>
                                         </tbody>
                                     </table>
@@ -191,12 +202,12 @@
                                           <tr>
                                             <td>Whatsapp Title</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->whatsapp_title ?? 'No Data Available'}}</td>
+                                            <td>{{$data->whatsapp_title ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Whatsapp Description</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->whatsapp_description ?? 'No Data Available'}}</td>
+                                            <td>{{$data->whatsapp_description ?? 'No Data Available'}}</td>
                                           </tr>
                                         </tbody>
                                     </table>
@@ -208,32 +219,106 @@
                                           <tr>
                                             <td>Pinterest Description</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->pinterest_description ?? 'No Data Available'}}</td>
+                                            <td>{{$data->pinterest_description ?? 'No Data Available'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Pinterest Description</td>
                                             <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>{{$data->metaData?->pinterest_rich_pin ?? 'No Data Available'}}</td>
+                                            <td>{{$data->pinterest_rich_pin ?? 'No Data Available'}}</td>
                                           </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 {{-- tab end --}}
                                 <div class="tab-pane fade" id="pill-tab-seo_image" role="tabpanel" aria-labelledby="seo_image-tab">
-                                    <table class="table table-bordered" style="overflow: scroll">
-                                        <tbody>
-                                          <tr>
-                                            <td>Seo Image</td>
-                                            <td><i class="bi bi-chevron-double-right"></i></td>
-                                            <td>
-                                              @foreach($data->metaData->images as $image)
-                                                  <img src="{{ asset('storage/uploads/seo/' . $image->image_name) }}" alt="SEO Image" height="200px" width="auto" >
-                                              @endforeach
-                                            </td>
-                                          </tr>
+                                  <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
+                                    <div class="card-header">
+                                      <div class="row flex-between-center">
+                                        <div class="col-6 col-sm-auto ms-auto text-end ps-0">
+                                          <div class="d-none" id="table-purchases-actions">
+                                            <div class="d-flex">
+                                              <select class="form-select form-select-sm" id="bulk-action-select">
+                                                <option selected disabled>Bulk actions</option>
+                                                <option value="delete_images">Delete</option>
+                                                
+                                              </select>
+                                              <button class="btn btn-falcon-default btn-sm ms-2" id="bulk-apply-btn" type="button">Apply</button>
+                                            </div>
+                                          </div>
                                           
+                                
+                                          <div id="table-purchases-replace-element" class="d-flex align-items-center">
+                                              <!-- New Button -->
+                                            <a href="javascript::voied(0)" data-bs-toggle="modal" data-bs-target="#add_seo_image">
+                                              <button class="btn btn-falcon-default btn-sm" type="button">
+                                                <i class="fas fa-plus"></i>
+                                                <span class="d-none d-sm-inline-block ms-1">New</span>
+                                              </button>
+                                            </a>
+                                
+                                          </div>
+                                        </div>
+                                
+                                      </div>
+                                    </div>
+                                
+                                    <div class="card-body px-0 py-0">
+                                      <div class="table-responsive scrollbar">
+                                
+                                        <table class="table table-sm fs-10 mb-0 overflow-hidden">
+                                          <thead class="bg-200">
+                                            <tr class="">
+                                              <th class="white-space-nowrap">
+                                                <div class="form-check mb-0 d-flex align-items-center">
+                                                  <input class="form-check-input" id="checkbox-bulk-purchases-select" type="checkbox" data-bulk-select="{&quot;body&quot;:&quot;table-purchase-body&quot;,&quot;actions&quot;:&quot;table-purchases-actions&quot;,&quot;replacedElement&quot;:&quot;table-purchases-replace-element&quot;}">
+                                                </div>
+                                              </th>
+                                              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Model Type</th>
+                                              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">image</th>
+                                              <th class="no-sort pe-1 align-middle data-table-row-action text-center">Manage</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody class="list" id="table-purchase-body">
+                                           @foreach ($data->images as $image )
+                                            <tr class="btn-reveal-trigger">
+                                              <td class="align-middle" style="width: 28px;">
+                                                <div class="form-check mb-0">
+                                                  <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $image->id }}">
+                                                </div>
+                                              </td>
+                                              <td class="align-middle white-space-nowrap email">{{$image->model_type}}</td>
+                                              <td class="align-middle white-space-nowrap product">
+                                                @if (!empty($image))
+                                                <img src="{{asset('storage/uploads/seo/'.$image->image_name)}}" alt="image" height="80px">
+                                                @else
+                                                <img src="{{ asset('uploads/avater.jpg') }}" alt="SEO Image" height="80px" width="auto" style="border: 1px solid #000">
+                                                @endif
+                                              </td>
+                                              
+                                              <td class="align-middle white-space-nowrap text-end">
+                                                <div class="dropstart font-sans-serif position-static d-inline-block">
+                                                  <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal float-end"
+                                                          type="button" id="dropdown-recent-purchase-table-0"data-bs-toggle="dropdown"data-boundary="window"aria-haspopup="true"aria-expanded="false"data-bs-reference="parent">
+                                                    <i class="fas fa-ellipsis-h fs-10"></i>
+                                                  </button>
+                                                  <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
+                                                    <a class="dropdown-item" href="javascript::voied(0)"  data-bs-toggle="modal" data-bs-target="#edit_seo_image{{$image->id}}">Edit</a>
+                                                  </div>
+                                                </div>
+                                              </td>
+                                             
+                                            </tr>
+                                            @endforeach
+                                      
+                                
+                                            {{-- tr end here  --}}
+                                
                                         </tbody>
-                                    </table>
+                                        </table>
+                                      </div>
+                                    </div>
+                                   
+                                  </div>
                                 </div>
                                 {{-- tab end --}}
 
@@ -305,4 +390,83 @@
             </div>
         </div>
     </main>
+
+{{--   modal for add another seo image  --}}
+<form action="{{route('metatag.add_seo_image')}}" method="post" enctype="multipart/form-data">
+  @csrf
+<div class="modal fade" id="add_seo_image" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+    <div class="modal-content position-relative">
+      <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+        <button type="button" class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+          <h4 class="mb-1" id="modalExampleDemoLabel">Add a new Image </h4>
+        </div>
+        <div class="p-4 pb-0">
+            <input type="text" name="seo_id" value="{{$data->id}}">
+            <input type="text" name="model_type" value="{{$data->model_type}}">
+            <div class="mb-3">
+              <label class="col-form-label" for="message-text">Upload image:</label>
+              <input class="form-control" name="images[]" id="imageInput" type="file" multiple>
+            </div>
+            
+         
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Upload </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+{{--   modal for add another seo image  --}}
+@foreach ( $data->images as $image)
+<form action="{{route('metatag.update_seo_image')}}" method="post" enctype="multipart/form-data">
+  @csrf
+<div class="modal fade" id="edit_seo_image{{$image->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+    <div class="modal-content position-relative">
+      <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+        <button type="button" class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+          <h4 class="mb-1" id="modalExampleDemoLabel">Update a new Image </h4>
+        </div>
+        <div class="p-4 pb-0">
+         
+            <div class="p-4 pb-0">
+              <input type="text" name="id" value="{{$image->id}}">
+              <input type="text" name="seo_id" value="{{$data->id}}">
+              <input type="text" name="model_type" value="{{$data->model_type}}">
+              <div class="mb-3">
+                <label class="col-form-label" for="message-text">Upload image:</label>
+                <input class="form-control" name="images" type="file">
+              </div>
+
+              <div class="pt-4 pb-4">
+                @if (!empty($image))
+                  <img src="{{asset('storage/uploads/seo/'.$image->image_name)}}" alt="image" height="80px">
+                @else
+                  <img src="{{ asset('uploads/avater.jpg') }}" alt="SEO Image" height="80px" width="auto" style="border: 1px solid #000">
+                @endif
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        
+        <button class="btn btn-primary" type="submit">Update </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+@endforeach
+
+
 @endsection

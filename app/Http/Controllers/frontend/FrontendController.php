@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     /**----------  index page function ----- */
     public function index(){
+
         return view('frontend.index');
     }
     /**----------  about page function ----- */
@@ -17,8 +19,10 @@ class FrontendController extends Controller
     }
 
     /** category product  */
-    public function product(){
-        return view('frontend.pages.category_product');
+    public function product_category($url,$slug){
+
+        $data = Category::where('public_status',1)->where('url',$url)->where('slug',$slug)->firstOrFail();
+        return view('frontend.pages.category_product',compact('data'));
     }
 
     /** category product  */

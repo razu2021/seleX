@@ -11,6 +11,7 @@
     <!-- ===============================================-->
     <title>Falcon | Dashboard &amp; Web App Template</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" />
+    @stack('scripts')
     @includeIf('backend/admin_component/css/style')
 
 </head>

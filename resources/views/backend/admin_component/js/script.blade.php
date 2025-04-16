@@ -221,6 +221,7 @@
               sendBulkRequest(selectedIDs, 'restore');
             }
           });
+
         }else if(selectedAction === 'heard_delete'){
           Swal.fire({
             title: 'Are you sure?',
@@ -234,29 +235,47 @@
               sendBulkRequest(selectedIDs, 'heard_delete');
             }
           });
+        }else if(selectedAction === 'delete_images'){
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to Deletes ${selectedIDs.length} items!`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Deletes!',
+            confirmButtonColor: '#d33'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'delete_images');
+            }
+          });
         }
 
+
+
+
+        // end function 
       });
 
   
       function sendBulkRequest(ids, actionType) {
-        fetch("{{ route('category.bulkAction') }}", {
+        fetch(bulkActionUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            "X-CSRF-TOKEN": csrfToken
           },
           body: JSON.stringify({ ids: ids, action: actionType })
         })
         .then(response => response.json())
         .then(data => {
-          if(data.success) {
+          if (data.success) {
             Swal.fire('Done!', data.message, 'success').then(() => location.reload());
           } else {
             Swal.fire('Error', data.message || 'Something went wrong!', 'error');
           }
         });
       }
+
     });
   </script>
   

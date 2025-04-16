@@ -275,8 +275,8 @@
                         </li>
                     </ul>
                     <!-- parent pages-->
-                    <a class="nav-link" href="kanban.html" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Kanban</span></div>
+                    <a class="nav-link" href="{{route('metatag.all')}}" role="button">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Seo Data</span></div>
                     </a>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#social" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="social">
