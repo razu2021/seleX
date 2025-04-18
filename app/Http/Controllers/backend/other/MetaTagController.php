@@ -48,15 +48,17 @@ class MetaTagController extends Controller
    /**
     * ---------  view page functionality --------
     **/
-    public function view($id ,$type ,$slug){
+    public function view($id,$model_type,$slug){
+        
+     
         $data = Seo::with([
-            'Category',
+            'metaData',
             'images'
         ])
         ->where('status', 1)
         ->where('id', $id)
+        ->where('model_type',$model_type)
         ->where('slug', $slug)
-        ->where('model_type', $type) // ✅ এইটা Seo টেবিলের জন্য
         ->firstOrFail();
        // dd($data);
         
@@ -64,10 +66,13 @@ class MetaTagController extends Controller
     }
 
 
+
+
+
    /**
     * ---------  edit page functionality --------
     **/
-    public function edit($id,$type,$slug){
+    public function edit($id,$slug){
         $totalpost  = Seo::get()->count();
         $latestPost  = Seo::latest()->first();
         $data = Seo::with([
@@ -77,7 +82,6 @@ class MetaTagController extends Controller
         ->where('status', 1)
         ->where('id', $id)
         ->where('slug', $slug)
-        ->where('model_type', $type) // ✅ এইটা Seo টেবিলের জন্য
         ->firstOrFail();
        // dd($data);
         return view('backend.other.metatag.edit',compact('totalpost','latestPost','data'));

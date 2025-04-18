@@ -94,7 +94,7 @@
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="email-detail.html">
+                            <a class="nav-link" href="{{route('subcategory.all')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Sub Category's</span></div>
                             </a>
                             <!-- more inner pages-->

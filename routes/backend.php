@@ -4,6 +4,7 @@ use App\Http\Controllers\backend\admin\AdminController;
 use App\Http\Controllers\backend\category\categoryController;
 
 
+use App\Http\Controllers\backend\category\SubCategoryController;
 use App\Http\Controllers\backend\other\MetaTagController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,37 +38,6 @@ Route::get('admin/dashboard/cc',function(){
  * =========================================
  */
 
- /**-------------  Meta Tag  route is here ------- */
-Route::controller(MetaTagController::class)->prefix('admin/dashboard/metatag/')->name('metatag.')->group(function(){
-    Route::get('all','index')->name('all');
-    Route::get('add','add')->name('add');
-    Route::get('view/{id}/{type}/{slug}','view')->name('view');
-    Route::get('edit/{id}/{type}/{slug}','edit')->name('edit');
-    Route::post('submit','insert')->name('submit');
-    Route::post('update','update')->name('update');
-    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
-    Route::post('restore/{id}','restore')->name('restore');
-    Route::delete('delete/{id}','delete')->name('delete');
-    Route::post('bulk-action','bulkAction')->name('bulkAction');
-    Route::get('recycle','recycle')->name('recycle');
-
-    Route::get('public/{id}/{slug}','public_status')->name('public');
-    Route::get('private/{id}/{slug}','private_status')->name('private'); 
-
-    // export route 
-    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
-    Route::get('export-excel','export_excel')->name('export_excel'); 
-    Route::get('export-csv','export_csv')->name('export_csv'); 
-    Route::get('export-zip','export_zip')->name('export_zip'); 
-    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
-
-    Route::post('add_seo_image','add_seo_image')->name('add_seo_image');
-    Route::post('update_seo_image','update_seo_image')->name('update_seo_image');
-
-  
-   
-
-});
 
 
 
@@ -85,19 +55,36 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
     Route::delete('delete/{id}','delete')->name('delete');
     Route::post('bulk-action','bulkAction')->name('bulkAction');
     Route::get('recycle','recycle')->name('recycle');
-
     Route::get('public/{id}/{slug}','public_status')->name('public');
     Route::get('private/{id}/{slug}','private_status')->name('private'); 
-
     // export route 
     Route::get('export-pdf','export_pdf')->name('export_pdf'); 
     Route::get('export-excel','export_excel')->name('export_excel'); 
     Route::get('export-csv','export_csv')->name('export_csv'); 
     Route::get('export-zip','export_zip')->name('export_zip'); 
     Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
-
-   
-
+});
+/**------------- Sub category route is here ------- */
+Route::controller(SubCategoryController::class)->prefix('admin/dashboard/subcategory/')->name('subcategory.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
 });
 
 
@@ -153,6 +140,30 @@ Route::controller(categoryController::class)->prefix('admin/dashboard/category/'
 
 
 
+ /**-------------  Meta Tag  route is here ------- */
+ Route::controller(MetaTagController::class)->prefix('admin/dashboard/metatag/')->name('metatag.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{model_type}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
+    Route::post('add_seo_image','add_seo_image')->name('add_seo_image');
+    Route::post('update_seo_image','update_seo_image')->name('update_seo_image');
+});
 
 
 

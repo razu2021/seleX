@@ -30,7 +30,14 @@ class Seo extends Model
 
     /** ---- join other model -- */
     
-    public function Category(){
-        return $this->belongsTo(Category::class,'unique_id','id');
+
+
+
+
+    public function metaData()
+    {
+        return $this->morphTo(__FUNCTION__, 'model_type', 'unique_id');
     }
+
+
 }

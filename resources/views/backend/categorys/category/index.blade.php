@@ -165,7 +165,7 @@
                     @endif 
                     <a class="dropdown-item" href="{{route('category.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
                     @if (!empty($data->metaData->model_type))
-                      <a class="dropdown-item" href="{{route('metatag.view',[$data->id,$data->metaData->model_type, $data->slug])}}">Meta Infomations</a>
+                      <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
                     @endif
                     
 

@@ -77,71 +77,53 @@
 </script>
 
 
-{{-- <script>
-    document.querySelectorAll('.deleteButton').forEach(button => {
-    button.addEventListener('click', function() {
-        var button = this; // Button clicked
-        var id = button.getAttribute('data-id'); // Get the id from data-id attribute
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Disable the button or hide it after clicking
-                button.disabled = true; // Disable button
-                button.innerHTML = 'Deleting...'; // Optional: Change button text
-
-                // Submit the form programmatically if confirmed
-                document.getElementById('deleteForm').submit();
-            }
-        });
-    });
-});
-</script> --}}
 
 
 
 {{--   image preview and deleter or remove item --}}
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-  const imageInput = document.getElementById('imageInput');
-  const previewContainer = document.getElementById('previewContainer');
+    const imageInput = document.getElementById('imageInput');
+    const previewContainer = document.getElementById('previewContainer');
 
-  // যদি imageInput না থাকে, তাহলে কোনো event listener দেবো না
-  if (!imageInput || !previewContainer) return;
+    if (!imageInput || !previewContainer) return;
 
-  imageInput.addEventListener('change', function () {
+    imageInput.addEventListener('change', function () {
       previewContainer.innerHTML = '';
 
       Array.from(this.files).forEach((file, index) => {
-          if (file.type.startsWith('image/')) {
-              const reader = new FileReader();
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
 
-              reader.onload = function (e) {
-                  const col = document.createElement('div');
-                  col.classList.add('col-md-3', 'position-relative', 'mb-3');
+          reader.onload = function (e) {
+            const col = document.createElement('div');
+            col.classList.add('col-md-3', 'position-relative', 'mb-3');
 
-                  col.innerHTML = `
-                      <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px; width:auto; object-fit: cover;">
-                      <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-index="${index}">X</button>
-                  `;
+            // unique ID for remove
+            const uniqueId = `img-${index}-${Date.now()}`;
 
-                  previewContainer.appendChild(col);
-              };
+            col.innerHTML = `
+              <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px; width:auto; object-fit: cover;">
+              <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-id="${uniqueId}">X</button>
+            `;
 
-              reader.readAsDataURL(file);
-          }
+            previewContainer.appendChild(col);
+
+            // Attach remove event
+            col.querySelector('.remove-btn').addEventListener('click', function () {
+              col.remove();
+            });
+          };
+
+          reader.readAsDataURL(file);
+        }
       });
+    });
   });
-});
-
 </script>
+
 
 
 

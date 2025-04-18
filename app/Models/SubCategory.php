@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Category extends Model
+class SubCategory extends Model
 {
     use SoftDeletes;
     protected $primaryKey = "id";
@@ -20,10 +19,8 @@ class Category extends Model
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
 
-
-    // category model 
-    public function metaData(){
-        return $this->morphOne(Seo::class, 'seoable', 'model_type', 'unique_id');
-    }
-    
+        // category model 
+        public function metaData(){
+            return $this->morphOne(Seo::class, 'seoable', 'model_type', 'unique_id');
+        }
 }
