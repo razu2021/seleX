@@ -18,6 +18,9 @@ class SubCategory extends Model
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
+    public function Category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 
         // category model 
         public function metaData(){

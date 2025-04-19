@@ -9,8 +9,8 @@
                       <h5 class="mb-2 mb-md-0">Categorie Detail's</h5>
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('subcategory.add')}}">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('subcategory.all')}}">All Items </a> </button>
+                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('childcategory.add')}}">Discard</a></button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('childcategory.all')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
@@ -27,25 +27,25 @@
                                 
                                 <tbody>
                                   <tr>
-                                    <td>Category Name</td>
+                                    <td>Category/SubCategory</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td class="text-success fw-bolder">{{$data->Category->category_name}}</td>
+                                    <td class="text-success fw-bolder">{{$data->Category->category_name}} <i class="bi bi-chevron-double-right"></i> {{$data->SubCategory->sub_category_name}}</td>
                                   </tr>
                                   <tr>
                                     <td>Name</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->sub_category_name}}</td>
+                                    <td>{{$data->child_category_name}}</td>
                                   </tr>
                                   <tr>
                                     <td>Title</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->sub_category_title}}</td>
+                                    <td>{{$data->child_category_title}}</td>
                                   </tr>
                                  
                                   <tr>
                                     <td>Description</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->sub_category_des}}</td>
+                                    <td>{{$data->child_category_des}}</td>
                                   </tr>
                                   <tr>
                                     <td>Slug </td>
@@ -55,7 +55,7 @@
                                   <tr>
                                     <td>Unique URL</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->sub_category_url}}</td>
+                                    <td>{{$data->child_category_url}}</td>
                                   </tr>
                                  
                                 </tbody>

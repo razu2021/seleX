@@ -11,7 +11,7 @@
 @endif
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('subcategory.bulkAction') }}";
+  const bulkActionUrl = "{{ route('childcategory.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush

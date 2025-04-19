@@ -9,13 +9,13 @@
                       <h5 class="mb-2 mb-md-0">Update a Sub Categorie</h5>
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('subcategory.add')}}">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('subcategory.all')}}">All Items </a> </button>
+                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('childcategory.add')}}">Discard</a></button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('childcategory.all')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
               </div>
-          <form action="{{route('subcategory.update')}}" method="post" enctype="multipart/form-data">
+          <form action="{{route('childcategory.update')}}" method="post" enctype="multipart/form-data">
           @csrf
             <div class="row">
                 <div class="col-lg-8">
@@ -43,22 +43,22 @@
                                       
 
                                    </select>
-                                    <label class="text-danger fw-medium">@error('sub_category_name') {{$message}} @enderror</label>
+                                    <label class="text-danger fw-medium">@error('child_category_name') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="sub_category_name">Sub Categorie Name:</label>
-                                    <input class="form-control" name="sub_category_name" id="sub_category_name" type="text" value="{{$data->sub_category_name}}">
-                                    <label class="text-danger fw-medium">@error('sub_category_name') {{$message}} @enderror</label>
+                                    <label class="form-label" for="child_category_name">Sub Categorie Name:</label>
+                                    <input class="form-control" name="child_category_name" id="child_category_name" type="text" value="{{$data->child_category_name}}">
+                                    <label class="text-danger fw-medium">@error('child_category_name') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="sub_category_title">Sub Categorie Title:</label>
-                                    <input class="form-control" name="sub_category_title" id="sub_category_title" type="text" value="{{$data->sub_category_title}}">
+                                    <label class="form-label" for="child_category_title">Sub Categorie Title:</label>
+                                    <input class="form-control" name="child_category_title" id="child_category_title" type="text" value="{{$data->child_category_title}}">
                                     <label class="text-danger fw-medium">@error('category_title') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="sub_category_desc">Categorie Descriptions:</label>
-                                    <input class="form-control" name="sub_category_desc" id="sub_category_desc" type="text" value="{{$data->sub_category_des}}">
-                                    <label class="text-danger fw-medium" >@error('sub_category_desc') {{$message}} @enderror</label>
+                                    <label class="form-label" for="child_category_desc">Categorie Descriptions:</label>
+                                    <input class="form-control" name="child_category_desc" id="child_category_desc" type="text" value="{{$data->child_category_des}}">
+                                    <label class="text-danger fw-medium" >@error('child_category_desc') {{$message}} @enderror</label>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                           <div class="card-body">
                             <div class="col-12">
                               <label class="form-label" for="custom_url">Categorie Url:</label>
-                              <input class="form-control" name="custom_url" id="custom_url" type="text" value="{{$data->sub_category_url}}">
+                              <input class="form-control" name="custom_url" id="custom_url" type="text" value="{{$data->child_category_url}}">
                               
                             </div>
                           </div>

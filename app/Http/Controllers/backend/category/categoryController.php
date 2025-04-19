@@ -55,7 +55,7 @@ class categoryController extends Controller
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        dd($data);
+        
         return view('backend.categorys.category.view',compact('data'));
     }
 
@@ -67,7 +67,7 @@ class categoryController extends Controller
         $totalpost  = Category::get()->count();
         $latestPost = Category::latest()->first();
         $data= Category::with(['metaData'=>function($query){
-            $query->where('model_type','Category'); // metaData filter   
+            $query->where('model_type','App\Models\Category'); // metaData filter   
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();

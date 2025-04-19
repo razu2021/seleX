@@ -9,9 +9,10 @@
         });
     </script>
 @endif
+
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('subcategory.bulkAction') }}";
+  const bulkActionUrl = "{{ route('childcategory.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -29,7 +30,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('category.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('childcategory.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -48,8 +49,10 @@
             <div class="d-flex">
               <select class="form-select form-select-sm" id="bulk-action-select">
                 <option selected disabled>Bulk actions</option>
-                <option value="restore">Restore Data</option>
-                <option value="heard_delete">Delete Data</option>
+                <option value="active">Active</option>
+                <option value="deactive">Deactive</option>
+                <option value="delete">Delete</option>
+                
               </select>
               <button class="btn btn-falcon-default btn-sm ms-2" id="bulk-apply-btn" type="button">Apply</button>
             </div>
@@ -58,7 +61,7 @@
 
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('category.add')}}">
+            <a href="{{route('childcategory.add')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
                 <i class="fas fa-plus"></i>
                 <span class="d-none d-sm-inline-block ms-1">New</span>
@@ -66,16 +69,28 @@
             </a>
 
               <!-- Filter Button -->
-            <a href="{{route('category.all')}}">
+            <a href="{{route('childcategory.recycle')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
-                <span class="d-none d-sm-inline-block ms-1">All Infomations</span>
+                <span class="d-none d-sm-inline-block ms-1">Recycle</span>
               </button>
             </a>
 
               <!-- Export Button -->
            
-           
+              <div class="dropdown">
+                <button class="btn btn-falcon-default btn-sm dropdown-toggle d-flex align-items-center" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span class="d-none d-sm-inline-block ms-1">Export</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                  <li><a class="dropdown-item" href="{{route('childcategory.export_pdf')}}">Export as PDF</a></li>
+                  <li><a class="dropdown-item" href="{{route('childcategory.export_excel')}}">Export as Excel</a></li>
+                  <li><a class="dropdown-item" href="{{route('childcategory.export_csv')}}">Export as CSV</a></li>
+                  <li><a class="dropdown-item" href="{{route('childcategory.export_zip')}}">Export as Zip</a></li>
+                </ul>
+              </div>
+              
            
               
           </div>
@@ -112,9 +127,9 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap email">{{$data->category_name}}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->category_title}}</td>
-              <td class="align-middle white-space-nowrap product">{{Str::words($data->category_des,10)}}</td>
+              <td class="align-middle white-space-nowrap email">{{$data->child_category_name}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->child_category_title}}</td>
+              <td class="align-middle white-space-nowrap product">{{Str::words($data->child_category_des,10)}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle white-space-nowrap product">razu</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
@@ -132,30 +147,28 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
+                    <a class="dropdown-item" href="{{route('childcategory.view',[$data->id, $data->slug])}}">View</a>
+                    <a class="dropdown-item" href="{{route('childcategory.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('category.delete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('childcategory.softdelete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
                     <!-- Link to trigger the delete action -->
-
-                    <!-- Restore Button with JS Confirm -->
-                      
-
-                        <!-- Hidden Form -->
-                        <form id="restoreForm{{ $data->id }}" action="{{ route('category.restore', $data->id) }}" method="POST" style="display: none;">
-                        @csrf
-                     
-                        </form>
-
-                        
-
-                    <!-- Restore button -->
-                       
-                    <a href="javascript:void(0);" class="dropdown-item restore-button" id="restoreForm{{ $data->id }}" data-id="{{ $data->id }}">Restor</a>
                     <a href="javascript:void(0);" class="dropdown-item text-danger" id="deleteButton{{ $data->id }}" data-id="{{ $data->id }}">Delete</a>
 
-                   
+                    <div class="dropdown-divider"></div>
+                    @if($data->public_status === 0)
+                      <a class="dropdown-item text-success" href="{{route('childcategory.public',[$data->id, $data->slug])}}">Publish</a>
+                    @else 
+                     <a class="dropdown-item text-warning" href="{{route('childcategory.private',[$data->id, $data->slug])}}">Private</a>
+                    @endif 
+                    <a class="dropdown-item" href="{{route('childcategory.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
+                    @if (!empty($data->metaData->model_type))
+                    <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
+                    @endif
+                    
+
                   </div>
                 </div>
               </td>
@@ -183,6 +196,9 @@
       </div>
     </div>
   </div>
+
+
+
 @endsection
 
 

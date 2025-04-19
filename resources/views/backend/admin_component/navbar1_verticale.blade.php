@@ -100,7 +100,7 @@
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="compose.html">
+                            <a class="nav-link" href="{{route('childcategory.all')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Child Category's</span></div>
                             </a>
                             <!-- more inner pages-->

@@ -21,7 +21,9 @@ class FrontendController extends Controller
     /** category product  */
     public function product_category($url,$slug){
 
-        $data = Category::where('public_status',1)->where('url',$url)->where('slug',$slug)->firstOrFail();
+        $data = Category::with(['subcategorys'])
+        ->where('public_status',1)->where('url',$url)->where('slug',$slug)->firstOrFail();
+        //dd($data);
         return view('frontend.pages.category_product',compact('data'));
     }
 

@@ -28,8 +28,8 @@ class SubCategoryController extends Controller
     public function index(Request $request){
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = SubCategory::where('status',1)->where('category_name','LIKE',"%$search%")
-            ->orWhere('category_title','LIKE',"%$search%")->orWhere('category_des','LIKE',"%$search%")->get();
+            $all = SubCategory::where('status',1)->where('sub_category_name','LIKE',"%$search%")
+            ->orWhere('sub_category_title','LIKE',"%$search%")->orWhere('sub_category_des','LIKE',"%$search%")->get();
         }else{
             $all = SubCategory::where('status',1)->get();
         }
@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
     **/
     public function view($id,$slug){
         $data= SubCategory::with(['metaData'=>function($query){
-            $query->where('model_type','Category'); // metaData filter   
+            $query->where('model_type','App\Models\SubCategory'); // metaData filter   
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
@@ -68,12 +68,13 @@ class SubCategoryController extends Controller
     public function edit($id,$slug){
         $totalpost  = SubCategory::get()->count();
         $latestPost = SubCategory::latest()->first();
+        $allcategory = Category::get();
         $data= SubCategory::with(['metaData'=>function($query){
-            $query->where('model_type','Category'); // metaData filter   
+            $query->where('model_type','App\Models\SubCategory'); // metaData filter   
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('backend.categorys.subcategory.edit',compact('totalpost','latestPost','data'));
+        return view('backend.categorys.subcategory.edit',compact('totalpost','latestPost','data','allcategory'));
     }
 
 
@@ -100,7 +101,7 @@ class SubCategoryController extends Controller
         $creator = Auth::guard('admin')->user()->id;
 
         //------- make a custom url for -------
-        $categoryname = strtolower($request->category_name) ;
+        $categoryname = strtolower($request->sub_category_name) ;
         $user_input_url  = strtolower($request->custom_url) ;
         if(!empty($user_input_url)){
             $url = Str::slug($user_input_url); // Output: "my-new-category-name"
@@ -145,13 +146,13 @@ class SubCategoryController extends Controller
     public function update(Request $request){
         /**--- validation code -- */
         $request->validate([
-            'category_name'=> 'required',
+            'sub_category_name'=> 'required',
             
-            'category_desc'=> 'required',
+            'sub_category_desc'=> 'required',
             ],[
-                'category_name.required'=> 'Category Name is Required !',
+                'sub_category_name.required'=> 'Category Name is Required !',
                 
-                'category_desc.required'=> 'Category Description is Required !',
+                'sub_category_desc.required'=> 'Category Description is Required !',
             ]
         );
 
@@ -162,7 +163,7 @@ class SubCategoryController extends Controller
 
 
     // -------  update custom url --------//
-    $categoryname = strtolower($request->category_name) ;
+    $categoryname = strtolower($request->sub_category_name) ;
     $user_input_url  = strtolower($request->custom_url) ;
     if(!empty($user_input_url)){
         $url = Str::slug($user_input_url); // Output: "my-new-category-name"
@@ -172,11 +173,12 @@ class SubCategoryController extends Controller
 
     //---------category update -------//
     $update = SubCategory::where('id',$id)->where('slug',$slug)->update([
-        'category_name'=>$request->category_name,
-        'category_title'=>$request->category_title,
-        'category_des'=>$request->category_desc,
+        'category_id'=>$request->category_id,
+        'sub_category_name'=>$request->sub_category_name,
+        'sub_category_title'=>$request->sub_category_title,
+        'sub_category_des'=>$request->sub_category_desc,
         'slug'=>$slug,
-        'url'=>$url,
+        'sub_category_url'=>$url,
         'editor_id' => $editor,
         'updated_at' => Carbon::now()->toDateTimeString(),
     ]);
@@ -185,6 +187,7 @@ class SubCategoryController extends Controller
     // ------insert Successfully--------// 
     if($update){
         flash()->success('Information Update Successfuly');
+        return redirect()->route('subcategory.view',[$id,$slug]);
     }else{
         flash()->error('Informatin Update Faild !');
     }

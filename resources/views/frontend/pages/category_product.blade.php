@@ -16,8 +16,16 @@
     </div>
     <!-- sub category  -->
     <div id="sub_category_list">
-        @includeif('frontend/my_component/product/subcategory_list')
+        @includeif('frontend/my_component/product/subcategory_list',[
+            'subcategory_items' => $data->subcategorys,
+        ])
     </div>
+
+    @foreach ($data->subcategorys as $items)
+    <p>{{$items->sub_category_name}}</p>
+    
+    @endforeach
+
     <!-- category product list   -->
     <div id="sub_category_list">
        <div class="container mt-5">
