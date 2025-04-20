@@ -14,18 +14,19 @@
     <div id="hot_sell_product">
         @includeif('frontend/my_component/product/hotsel')
     </div>
+
+
     <!-- sub category  -->
     <div id="sub_category_list">
         @includeif('frontend/my_component/product/subcategory_list',[
-            'subcategory_items' => $data->subcategorys,
+           'subcategory_items' => $data->subcategorys,
+           'categoryUrl' => $data->url,
+           'categorySlug' => $data->slug,
         ])
     </div>
 
-    @foreach ($data->subcategorys as $items)
-    <p>{{$items->sub_category_name}}</p>
-    
-    @endforeach
 
+   
     <!-- category product list   -->
     <div id="sub_category_list">
        <div class="container mt-5">
