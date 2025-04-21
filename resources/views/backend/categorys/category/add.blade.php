@@ -1,5 +1,7 @@
 @extends('layouts.adminmaster')
 @section('admin_contents')
+
+
     <main>
         <div class="container">
             <div class="card mb-3">
@@ -93,9 +95,10 @@
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
-                            <label class="form-label" for="meta_keywords">Meta Keywords:</label>
-                            <input class="form-control" name="meta_keywords" id="meta_keywords" type="text" value="{{old('meta_keywords')}}">
-                            
+                              <label class="form-label" for="meta_keywords">Meta Keywords:</label>
+                                  <input type="text" id="tag-input" class="form-control" placeholder="Enter keyword and press Enter">
+                              
+                                  <input type="text" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords') }}">
                           </div>
                           {{-- end  --}}
                           <div class="col-12">
@@ -249,4 +252,44 @@
             {{-- form end --}}
         </div>
     </main>
+
+    <script>
+    let tags = [];
+
+    const tagInput = document.getElementById('tag-input');
+    const tagContainer = document.getElementById('tag-container');
+    const hiddenInput = document.getElementById('meta_keywords');
+
+    tagInput.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter' || e.key === ',') {
+            const tag = tagInput.value.trim().replace(/,/g, '');
+            if (tag && !tags.includes(tag)) {
+                tags.push(tag);
+                updateTags();
+            }
+            tagInput.value = '';
+        }
+    });
+
+    function updateTags() {
+        tagContainer.innerHTML = '';
+        tags.forEach((tag, index) => {
+            const tagEl = document.createElement('span');
+            tagEl.className = 'tag';
+            tagEl.innerHTML = `${tag}<span class="remove-tag" data-index="${index}">&times;</span>`;
+            tagContainer.appendChild(tagEl);
+        });
+        tagContainer.appendChild(tagInput);
+        hiddenInput.value = tags.join(',');
+    }
+
+    tagContainer.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-tag')) {
+            const index = e.target.getAttribute('data-index');
+            tags.splice(index, 1);
+            updateTags();
+        }
+    });
+</script>
+
 @endsection
