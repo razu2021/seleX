@@ -12,7 +12,7 @@
 
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('category.bulkAction') }}";
+  const bulkActionUrl = "{{ route('subcategory.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -30,7 +30,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('category.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('subcategory.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -61,7 +61,7 @@
 
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('category.add')}}">
+            <a href="{{route('subcategory.add')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
                 <i class="fas fa-plus"></i>
                 <span class="d-none d-sm-inline-block ms-1">New</span>
@@ -69,7 +69,7 @@
             </a>
 
               <!-- Filter Button -->
-            <a href="{{route('category.recycle')}}">
+            <a href="{{route('subcategory.recycle')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
                 <span class="d-none d-sm-inline-block ms-1">Recycle</span>
@@ -84,10 +84,10 @@
                   <span class="d-none d-sm-inline-block ms-1">Export</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                  <li><a class="dropdown-item" href="{{route('category.export_pdf')}}">Export as PDF</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_excel')}}">Export as Excel</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_csv')}}">Export as CSV</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_zip')}}">Export as Zip</a></li>
+                  <li><a class="dropdown-item" href="{{route('subcategory.export_pdf')}}">Export as PDF</a></li>
+                  <li><a class="dropdown-item" href="{{route('subcategory.export_excel')}}">Export as Excel</a></li>
+                  <li><a class="dropdown-item" href="{{route('subcategory.export_csv')}}">Export as CSV</a></li>
+                  <li><a class="dropdown-item" href="{{route('subcategory.export_zip')}}">Export as Zip</a></li>
                 </ul>
               </div>
               
@@ -127,9 +127,9 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap email">{{$data->category_name}}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->category_title}}</td>
-              <td class="align-middle white-space-nowrap product">{{Str::words($data->category_des,10)}}</td>
+              <td class="align-middle white-space-nowrap email">{{$data->sub_category_name}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->sub_category_title}}</td>
+              <td class="align-middle white-space-nowrap product">{{Str::words($data->sub_category_des,10)}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle white-space-nowrap product">razu</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
@@ -147,10 +147,10 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('category.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('category.edit',[$data->id, $data->slug])}}">Edit</a>
+                    <a class="dropdown-item" href="{{route('subcategory.view',[$data->id, $data->slug])}}">View</a>
+                    <a class="dropdown-item" href="{{route('subcategory.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('category.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('subcategory.softdelete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
@@ -159,13 +159,13 @@
 
                     <div class="dropdown-divider"></div>
                     @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('category.public',[$data->id, $data->slug])}}">Publish</a>
+                      <a class="dropdown-item text-success" href="{{route('subcategory.public',[$data->id, $data->slug])}}">Publish</a>
                     @else 
-                     <a class="dropdown-item text-warning" href="{{route('category.private',[$data->id, $data->slug])}}">Private</a>
+                     <a class="dropdown-item text-warning" href="{{route('subcategory.private',[$data->id, $data->slug])}}">Private</a>
                     @endif 
-                    <a class="dropdown-item" href="{{route('category.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
+                    <a class="dropdown-item" href="{{route('subcategory.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
                     @if (!empty($data->metaData->model_type))
-                      <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
+                    <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
                     @endif
                     
 

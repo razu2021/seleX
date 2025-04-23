@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[FrontendController::class, 'index'])->name('index');
 
 Route::controller(FrontendController::class)->prefix('product/')->group(function(){
-    Route::get('/fashion-and-clothing','product')->name('product_category'); // category product
-    Route::get('/fashion-and-clothing/man-fashion','sub_category_product')->name('sub_category_product'); // sub category product
+    Route::get('/{url}/{slug}','product_category')->name('product_category'); // category product
+    Route::get('/{category}/{subcategory}/{category_slug}/{subcategory_slug}','sub_category_product')->name('sub_category_product'); // sub category product
     Route::get('/fashion-and-clothing/man-fashion/t-shirt','sub_sub_category_product')->name('sub_sub_category_product'); // sub category product
 });
 

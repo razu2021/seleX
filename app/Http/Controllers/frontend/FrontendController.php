@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     /**----------  index page function ----- */
     public function index(){
+
         return view('frontend.index');
     }
     /**----------  about page function ----- */
@@ -17,13 +19,23 @@ class FrontendController extends Controller
     }
 
     /** category product  */
-    public function product(){
-        return view('frontend.pages.category_product');
+    public function product_category($url,$slug){
+
+        $data = Category::with(['subcategorys'])
+        ->where('public_status',1)->where('url',$url)->where('slug',$slug)->firstOrFail();
+        //dd($data);
+        return view('frontend.pages.category_product',compact('data'));
     }
 
     /** category product  */
-    public function sub_category_product(){
-        return view('frontend.pages.sub_category_product');
+    public function sub_category_product($categoryUrl,$subcategoryUrl,$category_slug,$subcategory_slug){
+        $data = Category::where('public_status',1)->where('url',$categoryUrl)->where('slug',$category_slug)
+        ->with(['subcategorys'=>function($query) use($subcategoryUrl,$subcategory_slug){
+            $query->where('sub_category_url',$subcategoryUrl)->where('slug',$subcategory_slug);
+        }])
+        ->firstOrFail();
+       // dd($data);
+        return view('frontend.pages.sub_category_product',compact('data'));
     }
     /** category product  */
     public function sub_sub_category_product(){

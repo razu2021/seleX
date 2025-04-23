@@ -30,7 +30,7 @@
                                                     <div class="nav flex-column">
                                                         <a class="nav-link py-1 link-600 fw-medium" href="calendar.html">Calendar</a>
                                                         <a class="nav-link py-1 link-600 fw-medium" href="chat.html">Chat</a>
-                                                        <a class="nav-link py-1 link-600 fw-medium" href="kanban.html">Kanban</a>
+                                                        <a class="nav-link py-1 link-600 fw-medium" href="{{route('metatag.all')}}">Seo Data</a>
                                                         <p class="nav-link text-700 mb-0 fw-bold">Social</p>
                                                         <a class="nav-link py-1 link-600 fw-medium" href="feed.html">Feed</a>
                                                         <a class="nav-link py-1 link-600 fw-medium" href="activity-log.html">Activity log</a>

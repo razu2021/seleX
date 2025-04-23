@@ -1,14 +1,5 @@
 @extends('layouts.adminmaster')
 @section('admin_contents')
-
-
-
-
-
-
-
-
-
                 <div class="row g-3 mb-3">
                     <div class="col-md-6 col-xxl-3">
                         <div class="card h-md-100 ecommerce-card-min-width">

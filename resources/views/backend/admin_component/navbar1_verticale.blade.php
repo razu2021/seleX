@@ -94,13 +94,13 @@
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="email-detail.html">
+                            <a class="nav-link" href="{{route('subcategory.all')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Sub Category's</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="compose.html">
+                            <a class="nav-link" href="{{route('childcategory.all')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Child Category's</span></div>
                             </a>
                             <!-- more inner pages-->
@@ -275,8 +275,8 @@
                         </li>
                     </ul>
                     <!-- parent pages-->
-                    <a class="nav-link" href="kanban.html" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Kanban</span></div>
+                    <a class="nav-link" href="{{route('metatag.all')}}" role="button">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Seo Data</span></div>
                     </a>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#social" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="social">

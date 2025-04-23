@@ -5,7 +5,7 @@
     <div id="breadcrub" class="breadcrub">
         @includeif('frontend/my_component/breadcrub/banner1',
         [
-            'title'=>"Man Fashion",
+            'title'=>"title ",
             'caption'=>"Discover the Best Deals, Trending Products & Exclusive Offers Just for You!"
         ])
     </div>
@@ -15,9 +15,9 @@
         @includeif('frontend/my_component/product/hotsel')
     </div>
     <!-- sub category  -->
-    <div id="sub_category_list">
+    {{-- <div id="sub_category_list">
         @includeif('frontend/my_component/product/subcategory_list')
-    </div>
+    </div> --}}
     <!-- category product list   -->
     <div id="sub_category_list">
         @includeif('frontend/my_component/product/product_card1')

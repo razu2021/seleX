@@ -77,71 +77,53 @@
 </script>
 
 
-{{-- <script>
-    document.querySelectorAll('.deleteButton').forEach(button => {
-    button.addEventListener('click', function() {
-        var button = this; // Button clicked
-        var id = button.getAttribute('data-id'); // Get the id from data-id attribute
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Disable the button or hide it after clicking
-                button.disabled = true; // Disable button
-                button.innerHTML = 'Deleting...'; // Optional: Change button text
-
-                // Submit the form programmatically if confirmed
-                document.getElementById('deleteForm').submit();
-            }
-        });
-    });
-});
-</script> --}}
 
 
 
 {{--   image preview and deleter or remove item --}}
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-  const imageInput = document.getElementById('imageInput');
-  const previewContainer = document.getElementById('previewContainer');
+    const imageInput = document.getElementById('imageInput');
+    const previewContainer = document.getElementById('previewContainer');
 
-  // যদি imageInput না থাকে, তাহলে কোনো event listener দেবো না
-  if (!imageInput || !previewContainer) return;
+    if (!imageInput || !previewContainer) return;
 
-  imageInput.addEventListener('change', function () {
+    imageInput.addEventListener('change', function () {
       previewContainer.innerHTML = '';
 
       Array.from(this.files).forEach((file, index) => {
-          if (file.type.startsWith('image/')) {
-              const reader = new FileReader();
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
 
-              reader.onload = function (e) {
-                  const col = document.createElement('div');
-                  col.classList.add('col-md-3', 'position-relative', 'mb-3');
+          reader.onload = function (e) {
+            const col = document.createElement('div');
+            col.classList.add('col-md-3', 'position-relative', 'mb-3');
 
-                  col.innerHTML = `
-                      <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px; width:auto; object-fit: cover;">
-                      <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-index="${index}">X</button>
-                  `;
+            // unique ID for remove
+            const uniqueId = `img-${index}-${Date.now()}`;
 
-                  previewContainer.appendChild(col);
-              };
+            col.innerHTML = `
+              <img src="${e.target.result}" class="img-fluid rounded shadow-sm border" style="height: 100px; width:auto; object-fit: cover;">
+              <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-btn" data-id="${uniqueId}">X</button>
+            `;
 
-              reader.readAsDataURL(file);
-          }
+            previewContainer.appendChild(col);
+
+            // Attach remove event
+            col.querySelector('.remove-btn').addEventListener('click', function () {
+              col.remove();
+            });
+          };
+
+          reader.readAsDataURL(file);
+        }
       });
+    });
   });
-});
-
 </script>
+
 
 
 
@@ -221,6 +203,7 @@
               sendBulkRequest(selectedIDs, 'restore');
             }
           });
+
         }else if(selectedAction === 'heard_delete'){
           Swal.fire({
             title: 'Are you sure?',
@@ -234,29 +217,47 @@
               sendBulkRequest(selectedIDs, 'heard_delete');
             }
           });
+        }else if(selectedAction === 'delete_images'){
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to Deletes ${selectedIDs.length} items!`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Deletes!',
+            confirmButtonColor: '#d33'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sendBulkRequest(selectedIDs, 'delete_images');
+            }
+          });
         }
 
+
+
+
+        // end function 
       });
 
   
       function sendBulkRequest(ids, actionType) {
-        fetch("{{ route('category.bulkAction') }}", {
+        fetch(bulkActionUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            "X-CSRF-TOKEN": csrfToken
           },
           body: JSON.stringify({ ids: ids, action: actionType })
         })
         .then(response => response.json())
         .then(data => {
-          if(data.success) {
+          if (data.success) {
             Swal.fire('Done!', data.message, 'success').then(() => location.reload());
           } else {
             Swal.fire('Error', data.message || 'Something went wrong!', 'error');
           }
         });
       }
+
     });
   </script>
   

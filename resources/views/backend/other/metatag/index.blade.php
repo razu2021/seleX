@@ -9,10 +9,9 @@
         });
     </script>
 @endif
-
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('category.bulkAction') }}";
+  const bulkActionUrl = "{{ route('metatag.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -30,7 +29,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('category.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('metatag.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -42,7 +41,7 @@
 
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Categorie Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Meta Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">
@@ -61,7 +60,7 @@
 
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('category.add')}}">
+            <a href="{{route('metatag.add')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
                 <i class="fas fa-plus"></i>
                 <span class="d-none d-sm-inline-block ms-1">New</span>
@@ -69,7 +68,7 @@
             </a>
 
               <!-- Filter Button -->
-            <a href="{{route('category.recycle')}}">
+            <a href="{{route('metatag.recycle')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
                 <span class="d-none d-sm-inline-block ms-1">Recycle</span>
@@ -84,10 +83,10 @@
                   <span class="d-none d-sm-inline-block ms-1">Export</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                  <li><a class="dropdown-item" href="{{route('category.export_pdf')}}">Export as PDF</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_excel')}}">Export as Excel</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_csv')}}">Export as CSV</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_zip')}}">Export as Zip</a></li>
+                  <li><a class="dropdown-item" href="{{route('metatag.export_pdf')}}">Export as PDF</a></li>
+                  <li><a class="dropdown-item" href="{{route('metatag.export_excel')}}">Export as Excel</a></li>
+                  <li><a class="dropdown-item" href="{{route('metatag.export_csv')}}">Export as CSV</a></li>
+                  <li><a class="dropdown-item" href="{{route('metatag.export_zip')}}">Export as Zip</a></li>
                 </ul>
               </div>
               
@@ -110,7 +109,7 @@
                   <input class="form-check-input" id="checkbox-bulk-purchases-select" type="checkbox" data-bulk-select="{&quot;body&quot;:&quot;table-purchase-body&quot;,&quot;actions&quot;:&quot;table-purchases-actions&quot;,&quot;replacedElement&quot;:&quot;table-purchases-replace-element&quot;}">
                 </div>
               </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Model Type</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Title</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Description</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
@@ -127,11 +126,11 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap email">{{$data->category_name}}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->category_title}}</td>
-              <td class="align-middle white-space-nowrap product">{{Str::words($data->category_des,10)}}</td>
-              <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
-              <td class="align-middle white-space-nowrap product">razu</td>
+              <td class="align-middle white-space-nowrap email">{{$data->model_type}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->meta_title}}</td>
+              <td class="align-middle white-space-nowrap product">{{Str::words($data->meta_description,5)}}</td>
+              <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y') }}</td>
+              <td class="align-middle white-space-nowrap product">{{ $data->creator->name }}</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
                 @if ($data->public_status === 1)
                   <small class="badge rounded badge-subtle-success false">Public</small>
@@ -147,10 +146,10 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('category.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('category.edit',[$data->id, $data->slug])}}">Edit</a>
+                    <a class="dropdown-item" href="{{route('metatag.view',[$data->id,$data->model_type,$data->slug])}}">View</a>
+                    <a class="dropdown-item" href="{{route('metatag.edit',[$data->id, $data->model_type, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('category.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('metatag.softdelete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
@@ -159,16 +158,11 @@
 
                     <div class="dropdown-divider"></div>
                     @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('category.public',[$data->id, $data->slug])}}">Publish</a>
+                      <a class="dropdown-item text-success" href="{{route('metatag.public',[$data->id, $data->slug])}}">Publish</a>
                     @else 
-                     <a class="dropdown-item text-warning" href="{{route('category.private',[$data->id, $data->slug])}}">Private</a>
+                     <a class="dropdown-item text-warning" href="{{route('metatag.private',[$data->id, $data->slug])}}">Private</a>
                     @endif 
-                    <a class="dropdown-item" href="{{route('category.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
-                    @if (!empty($data->metaData->model_type))
-                      <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
-                    @endif
-                    
-
+                    <a class="dropdown-item" href="{{route('metatag.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
                   </div>
                 </div>
               </td>

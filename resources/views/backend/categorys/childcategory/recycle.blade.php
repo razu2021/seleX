@@ -9,10 +9,9 @@
         });
     </script>
 @endif
-
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('category.bulkAction') }}";
+  const bulkActionUrl = "{{ route('childcategory.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -49,10 +48,8 @@
             <div class="d-flex">
               <select class="form-select form-select-sm" id="bulk-action-select">
                 <option selected disabled>Bulk actions</option>
-                <option value="active">Active</option>
-                <option value="deactive">Deactive</option>
-                <option value="delete">Delete</option>
-                
+                <option value="restore">Restore Data</option>
+                <option value="heard_delete">Delete Data</option>
               </select>
               <button class="btn btn-falcon-default btn-sm ms-2" id="bulk-apply-btn" type="button">Apply</button>
             </div>
@@ -69,28 +66,16 @@
             </a>
 
               <!-- Filter Button -->
-            <a href="{{route('category.recycle')}}">
+            <a href="{{route('category.all')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
-                <span class="d-none d-sm-inline-block ms-1">Recycle</span>
+                <span class="d-none d-sm-inline-block ms-1">All Infomations</span>
               </button>
             </a>
 
               <!-- Export Button -->
            
-              <div class="dropdown">
-                <button class="btn btn-falcon-default btn-sm dropdown-toggle d-flex align-items-center" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-external-link-alt"></i>
-                  <span class="d-none d-sm-inline-block ms-1">Export</span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                  <li><a class="dropdown-item" href="{{route('category.export_pdf')}}">Export as PDF</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_excel')}}">Export as Excel</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_csv')}}">Export as CSV</a></li>
-                  <li><a class="dropdown-item" href="{{route('category.export_zip')}}">Export as Zip</a></li>
-                </ul>
-              </div>
-              
+           
            
               
           </div>
@@ -147,28 +132,30 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('category.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('category.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('category.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('category.delete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
                     <!-- Link to trigger the delete action -->
+
+                    <!-- Restore Button with JS Confirm -->
+                      
+
+                        <!-- Hidden Form -->
+                        <form id="restoreForm{{ $data->id }}" action="{{ route('category.restore', $data->id) }}" method="POST" style="display: none;">
+                        @csrf
+                     
+                        </form>
+
+                        
+
+                    <!-- Restore button -->
+                       
+                    <a href="javascript:void(0);" class="dropdown-item restore-button" id="restoreForm{{ $data->id }}" data-id="{{ $data->id }}">Restor</a>
                     <a href="javascript:void(0);" class="dropdown-item text-danger" id="deleteButton{{ $data->id }}" data-id="{{ $data->id }}">Delete</a>
 
-                    <div class="dropdown-divider"></div>
-                    @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('category.public',[$data->id, $data->slug])}}">Publish</a>
-                    @else 
-                     <a class="dropdown-item text-warning" href="{{route('category.private',[$data->id, $data->slug])}}">Private</a>
-                    @endif 
-                    <a class="dropdown-item" href="{{route('category.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
-                    @if (!empty($data->metaData->model_type))
-                      <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
-                    @endif
-                    
-
+                   
                   </div>
                 </div>
               </td>
@@ -196,9 +183,6 @@
       </div>
     </div>
   </div>
-
-
-
 @endsection
 
 

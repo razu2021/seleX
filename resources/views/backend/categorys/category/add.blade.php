@@ -80,6 +80,7 @@
                           </div>
                       </div>
                       {{-- card end --}}
+<<<<<<< HEAD
                     <div class="card mt-4">
                         <div class="card-body">
                           <h5>SEO for Google </h5>
@@ -228,6 +229,8 @@
                           </div>
                           <div id="previewContainer" class="row mt-3 px-2"></div>
                         </div>
+=======
+>>>>>>> 8971937d442ee7655457f471d958fd046c651c49
                     </div>
                     {{-- card end  --}}
                   </div>
@@ -253,6 +256,7 @@
         </div>
     </main>
 
+<<<<<<< HEAD
     <script>
     let tags = [];
 
@@ -292,4 +296,54 @@
     });
 </script>
 
+=======
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          let keywords = [];
+  
+          const input = document.getElementById('keyword-input');
+          const container = document.getElementById('tag-container');
+          const hiddenInput = document.getElementById('meta_keywords');
+  
+          input.addEventListener('keyup', function (e) {
+              if (e.key === ' ') {
+                  const value = input.value.trim();
+                  if (value && !keywords.includes(value)) {
+                      keywords.push(value);
+                      addTag(value);
+                      updateHiddenInput();
+                  }
+                  input.value = '';
+              }
+          });
+  
+          function addTag(text) {
+              const tag = document.createElement('span');
+              tag.className = 'badge bg-primary me-1 mb-1';
+              tag.innerText = text;
+  
+              const removeBtn = document.createElement('span');
+              removeBtn.innerHTML = '&times;';
+              removeBtn.style.marginLeft = '8px';
+              removeBtn.style.cursor = 'pointer';
+  
+              removeBtn.onclick = function () {
+                  container.removeChild(tag);
+                  keywords = keywords.filter(k => k !== text);
+                  updateHiddenInput();
+              };
+  
+              tag.appendChild(removeBtn);
+              container.appendChild(tag);
+          }
+  
+          function updateHiddenInput() {
+              hiddenInput.value = keywords.join(',');
+          }
+      });
+  </script>
+  
+  
+>>>>>>> 8971937d442ee7655457f471d958fd046c651c49
 @endsection

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('seos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('unique_id')->nullable();
-            $table->foreign('unique_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('model_type')->nullable();
             // General SEO
             $table->string('meta_title')->nullable();
